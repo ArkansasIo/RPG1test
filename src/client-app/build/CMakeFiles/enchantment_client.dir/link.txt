@@ -1,0 +1,3 @@
+"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\enchantment_client.dir/objects.a
+D:\llvm-mingw-20260224-msvcrt-i686\llvm-mingw-20260224-msvcrt-i686\bin\llvm-ar.exe qc CMakeFiles\enchantment_client.dir/objects.a @CMakeFiles\enchantment_client.dir\objects1.rsp
+D:\llvm-mingw-20260224-msvcrt-i686\llvm-mingw-20260224-msvcrt-i686\bin\c++.exe -O3 -DNDEBUG -mwindows -mwindows -Wl,--whole-archive CMakeFiles\enchantment_client.dir/objects.a -Wl,--no-whole-archive -o enchantment_client.exe -Wl,--out-implib,libenchantment_client.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\enchantment_client.dir\linkLibs.rsp

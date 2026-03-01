@@ -16,25 +16,50 @@
 namespace fs = std::filesystem;
 
 // Control IDs
-#define IDC_BTN_OPEN_EXISTING   1001
-#define IDC_BTN_CREATE_NEW      1002
-#define IDC_BTN_OPEN_FOLDER     1003
-#define IDC_BTN_OPEN_FILE       1004
-#define IDC_BTN_RECENT_1        1010
-#define IDC_BTN_RECENT_2        1011
-#define IDC_BTN_RECENT_3        1012
-#define IDC_BTN_RECENT_4        1013
-#define IDC_BTN_RECENT_5        1014
-#define IDC_BTN_CONTINUE        1020
-#define IDC_BTN_CANCEL          1021
-#define IDC_BTN_SETTINGS        1022
+#define IDC_PROJECT_LISTBOX     1001
+#define IDC_STATUS_BAR          1002
+#define IDC_PREVIEW_PANEL       1003
+
+// Menu IDs - File Menu
+#define IDM_FILE_OPEN_PROJECT   2001
+#define IDM_FILE_NEW_PROJECT    2002
+#define IDM_FILE_OPEN_FOLDER    2003
+#define IDM_FILE_OPEN_FILES     2004
+#define IDM_FILE_RECENT_1       2010
+#define IDM_FILE_RECENT_2       2011
+#define IDM_FILE_RECENT_3       2012
+#define IDM_FILE_RECENT_4       2013
+#define IDM_FILE_RECENT_5       2014
+#define IDM_FILE_EXIT           2020
+
+// Menu IDs - Edit Menu
+#define IDM_EDIT_REMOVE_RECENT  2101
+#define IDM_EDIT_CLEAR_RECENT   2102
+
+// Menu IDs - View Menu
+#define IDM_VIEW_PREVIEW        2201
+#define IDM_VIEW_REFRESH        2202
+
+// Menu IDs - Tools Menu
+#define IDM_TOOLS_SETTINGS      2301
+#define IDM_TOOLS_LOCATION      2302
+
+// Menu IDs - Help Menu
+#define IDM_HELP_DOCS           2401
+#define IDM_HELP_SHORTCUTS      2402
+#define IDM_HELP_ABOUT          2403
 
 ProjectManager::ProjectManager()
     : m_cancelled(false)
 #ifdef _WIN32
     , m_hwnd(nullptr)
+    , m_menuBar(nullptr)
     , m_font(nullptr)
     , m_titleFont(nullptr)
+    , m_boldFont(nullptr)
+    , m_projectListBox(nullptr)
+    , m_statusBar(nullptr)
+    , m_previewPanel(nullptr)
 #endif
 {
     loadRecentProjects();
@@ -44,6 +69,8 @@ ProjectManager::~ProjectManager() {
 #ifdef _WIN32
     if (m_font) DeleteObject(m_font);
     if (m_titleFont) DeleteObject(m_titleFont);
+    if (m_boldFont) DeleteObject(m_boldFont);
+    if (m_menuBar) DestroyMenu(m_menuBar);
 #endif
 }
 
@@ -59,9 +86,9 @@ bool ProjectManager::showDialog() {
     
     RegisterClassA(&wc);
     
-    // Create window
-    int width = 600;
-    int height = 500;
+    // Create window with menu
+    int width = 900;
+    int height = 600;
     int screenWidth = GetSystemMetrics(SM_CXSCREEN);
     int screenHeight = GetSystemMetrics(SM_CYSCREEN);
     int x = (screenWidth - width) / 2;
@@ -71,7 +98,7 @@ bool ProjectManager::showDialog() {
         WS_EX_DLGMODALFRAME | WS_EX_TOPMOST,
         "EnchantmentProjectManager",
         "Enchantment Engine - Project Manager",
-        WS_POPUP | WS_CAPTION | WS_SYSMENU,
+        WS_OVERLAPPEDWINDOW,
         x, y, width, height,
         NULL, NULL, GetModuleHandle(NULL), this
     );
@@ -86,6 +113,10 @@ bool ProjectManager::showDialog() {
         CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "Segoe UI");
     
     m_titleFont = CreateFontA(24, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+        DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+        CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "Segoe UI");
+    
+    m_boldFont = CreateFontA(16, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
         DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
         CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "Segoe UI");
     
@@ -132,6 +163,9 @@ LRESULT CALLBACK ProjectManager::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, 
             case WM_COMMAND:
                 manager->onCommand(wParam);
                 return 0;
+            case WM_SIZE:
+                manager->onSize(LOWORD(lParam), HIWORD(lParam));
+                return 0;
             case WM_DESTROY:
                 manager->onDestroy();
                 return 0;
@@ -142,88 +176,220 @@ LRESULT CALLBACK ProjectManager::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, 
 }
 
 void ProjectManager::onCreate() {
+    createMenuBar();
     createControls();
+    createStatusBar();
+    refreshProjectList();
+}
+
+void ProjectManager::createMenuBar() {
+    m_menuBar = CreateMenu();
+    
+    // File Menu
+    HMENU fileMenu = CreatePopupMenu();
+    AppendMenuA(fileMenu, MF_STRING, IDM_FILE_OPEN_PROJECT, "📁 &Open Project...\tCtrl+O");
+    AppendMenuA(fileMenu, MF_STRING, IDM_FILE_NEW_PROJECT, "✨ &New Project...\tCtrl+N");
+    AppendMenuA(fileMenu, MF_SEPARATOR, 0, NULL);
+    AppendMenuA(fileMenu, MF_STRING, IDM_FILE_OPEN_FOLDER, "📂 Open &Folder...\tCtrl+K");
+    AppendMenuA(fileMenu, MF_STRING, IDM_FILE_OPEN_FILES, "📄 Open &Files...\tCtrl+Shift+O");
+    AppendMenuA(fileMenu, MF_SEPARATOR, 0, NULL);
+    
+    // Recent Projects submenu
+    HMENU recentMenu = CreatePopupMenu();
+    if (m_recentProjects.empty()) {
+        AppendMenuA(recentMenu, MF_STRING | MF_GRAYED, 0, "(No recent projects)");
+    } else {
+        for (size_t i = 0; i < m_recentProjects.size() && i < 5; i++) {
+            std::string menuText = std::to_string(i + 1) + ". " + m_recentProjects[i].name;
+            AppendMenuA(recentMenu, MF_STRING, IDM_FILE_RECENT_1 + i, menuText.c_str());
+        }
+    }
+    AppendMenuA(fileMenu, MF_POPUP, (UINT_PTR)recentMenu, "&Recent Projects");
+    
+    AppendMenuA(fileMenu, MF_SEPARATOR, 0, NULL);
+    AppendMenuA(fileMenu, MF_STRING, IDM_FILE_EXIT, "E&xit\tAlt+F4");
+    AppendMenuA(m_menuBar, MF_POPUP, (UINT_PTR)fileMenu, "&File");
+    
+    // Edit Menu
+    HMENU editMenu = CreatePopupMenu();
+    AppendMenuA(editMenu, MF_STRING, IDM_EDIT_REMOVE_RECENT, "Remove from Recent");
+    AppendMenuA(editMenu, MF_STRING, IDM_EDIT_CLEAR_RECENT, "Clear Recent Projects");
+    AppendMenuA(m_menuBar, MF_POPUP, (UINT_PTR)editMenu, "&Edit");
+    
+    // View Menu
+    HMENU viewMenu = CreatePopupMenu();
+    AppendMenuA(viewMenu, MF_STRING | MF_CHECKED, IDM_VIEW_PREVIEW, "Show &Preview Panel");
+    AppendMenuA(viewMenu, MF_SEPARATOR, 0, NULL);
+    AppendMenuA(viewMenu, MF_STRING, IDM_VIEW_REFRESH, "&Refresh\tF5");
+    AppendMenuA(m_menuBar, MF_POPUP, (UINT_PTR)viewMenu, "&View");
+    
+    // Tools Menu
+    HMENU toolsMenu = CreatePopupMenu();
+    AppendMenuA(toolsMenu, MF_STRING, IDM_TOOLS_SETTINGS, "⚙️ &Settings...");
+    AppendMenuA(toolsMenu, MF_STRING, IDM_TOOLS_LOCATION, "📍 Open Project &Location");
+    AppendMenuA(m_menuBar, MF_POPUP, (UINT_PTR)toolsMenu, "&Tools");
+    
+    // Help Menu
+    HMENU helpMenu = CreatePopupMenu();
+    AppendMenuA(helpMenu, MF_STRING, IDM_HELP_DOCS, "📚 &Documentation");
+    AppendMenuA(helpMenu, MF_STRING, IDM_HELP_SHORTCUTS, "⌨️ &Keyboard Shortcuts");
+    AppendMenuA(helpMenu, MF_SEPARATOR, 0, NULL);
+    AppendMenuA(helpMenu, MF_STRING, IDM_HELP_ABOUT, "&About Enchantment Engine");
+    AppendMenuA(m_menuBar, MF_POPUP, (UINT_PTR)helpMenu, "&Help");
+    
+    SetMenu(m_hwnd, m_menuBar);
 }
 
 void ProjectManager::createControls() {
     HINSTANCE hInstance = GetModuleHandle(NULL);
     
-    // Title label
-    HWND titleLabel = CreateWindowA("STATIC", "Select or Create a Project",
+    // Get client area
+    RECT clientRect;
+    GetClientRect(m_hwnd, &clientRect);
+    int width = clientRect.right - clientRect.left;
+    int height = clientRect.bottom - clientRect.top;
+    
+    // Title section
+    HWND titleLabel = CreateWindowA("STATIC", "🐉 Enchantment Engine",
         WS_CHILD | WS_VISIBLE | SS_CENTER,
-        20, 20, 560, 40,
+        20, 10, width - 40, 40,
         m_hwnd, NULL, hInstance, NULL);
     SendMessage(titleLabel, WM_SETFONT, (WPARAM)m_titleFont, TRUE);
     
-    // Description
-    HWND descLabel = CreateWindowA("STATIC", 
-        "Choose an existing project folder or create a new one to get started.",
+    // Subtitle
+    HWND subtitleLabel = CreateWindowA("STATIC", 
+        "Select a project to open or create a new one",
         WS_CHILD | WS_VISIBLE | SS_CENTER,
-        20, 70, 560, 30,
+        20, 55, width - 40, 25,
         m_hwnd, NULL, hInstance, NULL);
-    SendMessage(descLabel, WM_SETFONT, (WPARAM)m_font, TRUE);
+    SendMessage(subtitleLabel, WM_SETFONT, (WPARAM)m_font, TRUE);
     
-    // Open existing project button
-    HWND btnOpen = CreateWindowA("BUTTON", "📁 Open Existing Project",
+    // Quick action buttons
+    int btnY = 90;
+    int btnWidth = (width - 80) / 4;
+    
+    HWND btnOpen = CreateWindowA("BUTTON", "📁 Open",
         WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
-        50, 120, 240, 40,
-        m_hwnd, (HMENU)IDC_BTN_OPEN_EXISTING, hInstance, NULL);
+        20, btnY, btnWidth, 40,
+        m_hwnd, (HMENU)IDM_FILE_OPEN_PROJECT, hInstance, NULL);
     SendMessage(btnOpen, WM_SETFONT, (WPARAM)m_font, TRUE);
     
-    // Create new project button
-    HWND btnNew = CreateWindowA("BUTTON", "✨ Create New Project",
+    HWND btnNew = CreateWindowA("BUTTON", "✨ New",
         WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
-        310, 120, 240, 40,
-        m_hwnd, (HMENU)IDC_BTN_CREATE_NEW, hInstance, NULL);
+        30 + btnWidth, btnY, btnWidth, 40,
+        m_hwnd, (HMENU)IDM_FILE_NEW_PROJECT, hInstance, NULL);
     SendMessage(btnNew, WM_SETFONT, (WPARAM)m_font, TRUE);
     
-    // Open folder button
-    HWND btnFolder = CreateWindowA("BUTTON", "📂 Open Folder",
+    HWND btnFolder = CreateWindowA("BUTTON", "📂 Folder",
         WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
-        50, 170, 240, 40,
-        m_hwnd, (HMENU)IDC_BTN_OPEN_FOLDER, hInstance, NULL);
+        40 + btnWidth * 2, btnY, btnWidth, 40,
+        m_hwnd, (HMENU)IDM_FILE_OPEN_FOLDER, hInstance, NULL);
     SendMessage(btnFolder, WM_SETFONT, (WPARAM)m_font, TRUE);
     
-    // Open file button
-    HWND btnFile = CreateWindowA("BUTTON", "📄 Open File(s)",
+    HWND btnFiles = CreateWindowA("BUTTON", "📄 Files",
         WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
-        310, 170, 240, 40,
-        m_hwnd, (HMENU)IDC_BTN_OPEN_FILE, hInstance, NULL);
-    SendMessage(btnFile, WM_SETFONT, (WPARAM)m_font, TRUE);
+        50 + btnWidth * 3, btnY, btnWidth, 40,
+        m_hwnd, (HMENU)IDM_FILE_OPEN_FILES, hInstance, NULL);
+    SendMessage(btnFiles, WM_SETFONT, (WPARAM)m_font, TRUE);
     
-    // Recent projects section
-    if (!m_recentProjects.empty()) {
-        HWND recentLabel = CreateWindowA("STATIC", "Recent Projects:",
-            WS_CHILD | WS_VISIBLE | SS_LEFT,
-            50, 230, 500, 25,
-            m_hwnd, NULL, hInstance, NULL);
-        SendMessage(recentLabel, WM_SETFONT, (WPARAM)m_font, TRUE);
-        
-        int yPos = 260;
-        for (size_t i = 0; i < m_recentProjects.size() && i < 5; i++) {
-            std::string btnText = "📂 " + m_recentProjects[i].name;
-            HWND btnRecent = CreateWindowA("BUTTON", btnText.c_str(),
-                WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | BS_LEFT,
-                50, yPos, 500, 30,
-                m_hwnd, (HMENU)(IDC_BTN_RECENT_1 + i), hInstance, NULL);
-            SendMessage(btnRecent, WM_SETFONT, (WPARAM)m_font, TRUE);
-            yPos += 35;
-        }
+    // Projects section label
+    HWND projectsLabel = CreateWindowA("STATIC", "Recent Projects:",
+        WS_CHILD | WS_VISIBLE | SS_LEFT,
+        20, 145, 300, 25,
+        m_hwnd, NULL, hInstance, NULL);
+    SendMessage(projectsLabel, WM_SETFONT, (WPARAM)m_boldFont, TRUE);
+    
+    // Project list box
+    m_projectListBox = CreateWindowExA(
+        WS_EX_CLIENTEDGE,
+        "LISTBOX",
+        NULL,
+        WS_CHILD | WS_VISIBLE | WS_VSCROLL | LBS_NOTIFY | LBS_HASSTRINGS,
+        20, 175, (width - 60) / 2, height - 220,
+        m_hwnd, (HMENU)IDC_PROJECT_LISTBOX, hInstance, NULL);
+    SendMessage(m_projectListBox, WM_SETFONT, (WPARAM)m_font, TRUE);
+    
+    // Preview panel
+    m_previewPanel = CreateWindowExA(
+        WS_EX_CLIENTEDGE,
+        "STATIC",
+        "Select a project to see details",
+        WS_CHILD | WS_VISIBLE | SS_LEFT,
+        (width - 60) / 2 + 40, 175, (width - 60) / 2, height - 220,
+        m_hwnd, (HMENU)IDC_PREVIEW_PANEL, hInstance, NULL);
+    SendMessage(m_previewPanel, WM_SETFONT, (WPARAM)m_font, TRUE);
+}
+
+void ProjectManager::createStatusBar() {
+    HINSTANCE hInstance = GetModuleHandle(NULL);
+    
+    m_statusBar = CreateWindowExA(
+        0,
+        "STATIC",
+        "Ready | Press F1 for help",
+        WS_CHILD | WS_VISIBLE | SS_LEFT,
+        0, 0, 0, 0,  // Will be positioned in updateLayout
+        m_hwnd, (HMENU)IDC_STATUS_BAR, hInstance, NULL);
+    SendMessage(m_statusBar, WM_SETFONT, (WPARAM)m_font, TRUE);
+}
+
+void ProjectManager::updateLayout(int width, int height) {
+    // Update status bar
+    if (m_statusBar) {
+        SetWindowPos(m_statusBar, NULL, 5, height - 25, width - 10, 20, SWP_NOZORDER);
     }
     
-    // Settings button
-    HWND btnSettings = CreateWindowA("BUTTON", "⚙️ Settings",
-        WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
-        20, 430, 100, 35,
-        m_hwnd, (HMENU)IDC_BTN_SETTINGS, hInstance, NULL);
-    SendMessage(btnSettings, WM_SETFONT, (WPARAM)m_font, TRUE);
+    // Update project list and preview panel
+    if (m_projectListBox) {
+        SetWindowPos(m_projectListBox, NULL, 20, 175, (width - 60) / 2, height - 220, SWP_NOZORDER);
+    }
     
-    // Cancel button
-    HWND btnCancel = CreateWindowA("BUTTON", "Cancel",
-        WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
-        480, 430, 100, 35,
-        m_hwnd, (HMENU)IDC_BTN_CANCEL, hInstance, NULL);
-    SendMessage(btnCancel, WM_SETFONT, (WPARAM)m_font, TRUE);
+    if (m_previewPanel) {
+        SetWindowPos(m_previewPanel, NULL, (width - 60) / 2 + 40, 175, (width - 60) / 2, height - 220, SWP_NOZORDER);
+    }
+}
+
+void ProjectManager::refreshProjectList() {
+    if (!m_projectListBox) return;
+    
+    // Clear list
+    SendMessage(m_projectListBox, LB_RESETCONTENT, 0, 0);
+    
+    // Add recent projects
+    for (const auto& project : m_recentProjects) {
+        std::string displayText = "📁 " + project.name + "\n   " + project.path;
+        SendMessageA(m_projectListBox, LB_ADDSTRING, 0, (LPARAM)displayText.c_str());
+    }
+    
+    // Update status
+    if (m_statusBar) {
+        std::string status = "Ready | " + std::to_string(m_recentProjects.size()) + " recent projects";
+        SetWindowTextA(m_statusBar, status.c_str());
+    }
+}
+
+void ProjectManager::updatePreview() {
+    if (!m_previewPanel || !m_projectListBox) return;
+    
+    int selectedIndex = SendMessage(m_projectListBox, LB_GETCURSEL, 0, 0);
+    if (selectedIndex == LB_ERR || selectedIndex >= (int)m_recentProjects.size()) {
+        SetWindowTextA(m_previewPanel, "Select a project to see details");
+        return;
+    }
+    
+    const auto& project = m_recentProjects[selectedIndex];
+    std::string preview = "Project: " + project.name + "\n\n";
+    preview += "Path:\n" + project.path + "\n\n";
+    preview += "Type: " + std::string(project.isNew ? "New Project" : "Existing Project") + "\n\n";
+    
+    // Check if path exists
+    if (fs::exists(project.path)) {
+        preview += "Status: ✅ Available\n";
+    } else {
+        preview += "Status: ❌ Not Found\n";
+    }
+    
+    SetWindowTextA(m_previewPanel, preview.c_str());
 }
 
 void ProjectManager::onPaint() {
@@ -245,35 +411,91 @@ void ProjectManager::onPaint() {
     EndPaint(m_hwnd, &ps);
 }
 
+void ProjectManager::onSize(int width, int height) {
+    updateLayout(width, height);
+}
+
+void ProjectManager::onListBoxSelection() {
+    updatePreview();
+}
+
 void ProjectManager::onCommand(WPARAM wParam) {
     int id = LOWORD(wParam);
+    int notifyCode = HIWORD(wParam);
     
+    // Handle listbox selection
+    if (id == IDC_PROJECT_LISTBOX && notifyCode == LBN_SELCHANGE) {
+        onListBoxSelection();
+        return;
+    }
+    
+    // Handle listbox double-click
+    if (id == IDC_PROJECT_LISTBOX && notifyCode == LBN_DBLCLK) {
+        int selectedIndex = SendMessage(m_projectListBox, LB_GETCURSEL, 0, 0);
+        if (selectedIndex != LB_ERR && selectedIndex < (int)m_recentProjects.size()) {
+            openRecentProject(selectedIndex);
+        }
+        return;
+    }
+    
+    // File Menu
     switch (id) {
-        case IDC_BTN_OPEN_EXISTING:
+        case IDM_FILE_OPEN_PROJECT:
             openExistingProject();
             break;
-        case IDC_BTN_CREATE_NEW:
+        case IDM_FILE_NEW_PROJECT:
             createNewProject();
             break;
-        case IDC_BTN_OPEN_FOLDER:
+        case IDM_FILE_OPEN_FOLDER:
             openFolder();
             break;
-        case IDC_BTN_OPEN_FILE:
+        case IDM_FILE_OPEN_FILES:
             openFile();
             break;
-        case IDC_BTN_RECENT_1:
-        case IDC_BTN_RECENT_2:
-        case IDC_BTN_RECENT_3:
-        case IDC_BTN_RECENT_4:
-        case IDC_BTN_RECENT_5:
-            openRecentProject(id - IDC_BTN_RECENT_1);
+        case IDM_FILE_RECENT_1:
+        case IDM_FILE_RECENT_2:
+        case IDM_FILE_RECENT_3:
+        case IDM_FILE_RECENT_4:
+        case IDM_FILE_RECENT_5:
+            openRecentProject(id - IDM_FILE_RECENT_1);
             break;
-        case IDC_BTN_SETTINGS:
+        case IDM_FILE_EXIT:
+            closeDialog();
+            break;
+            
+        // Edit Menu
+        case IDM_EDIT_REMOVE_RECENT:
+            removeFromRecent();
+            break;
+        case IDM_EDIT_CLEAR_RECENT:
+            clearRecentProjects();
+            break;
+            
+        // View Menu
+        case IDM_VIEW_PREVIEW:
+            togglePreviewPanel();
+            break;
+        case IDM_VIEW_REFRESH:
+            refreshView();
+            break;
+            
+        // Tools Menu
+        case IDM_TOOLS_SETTINGS:
             showSettings();
             break;
-        case IDC_BTN_CANCEL:
-            m_cancelled = true;
-            DestroyWindow(m_hwnd);
+        case IDM_TOOLS_LOCATION:
+            openProjectLocation();
+            break;
+            
+        // Help Menu
+        case IDM_HELP_DOCS:
+            showHelp();
+            break;
+        case IDM_HELP_SHORTCUTS:
+            showKeyboardShortcuts();
+            break;
+        case IDM_HELP_ABOUT:
+            showAbout();
             break;
     }
 }
@@ -359,20 +581,6 @@ void ProjectManager::openFile() {
     }
 }
 
-void ProjectManager::showSettings() {
-    MessageBoxA(m_hwnd,
-        "Settings:\n\n"
-        "• Recent projects are stored in enchantment_recent.txt\n"
-        "• Configuration is stored in enchantment.conf\n"
-        "• Default port: 8080\n"
-        "• Default project path: Current directory\n\n"
-        "To change settings, edit enchantment.conf or use command line options:\n"
-        "  --port <port>\n"
-        "  --project <path>",
-        "Enchantment Engine Settings",
-        MB_OK | MB_ICONINFORMATION);
-}
-
 std::vector<std::string> ProjectManager::browseForFiles() {
     std::vector<std::string> files;
     
@@ -414,21 +622,6 @@ std::vector<std::string> ProjectManager::browseForFiles() {
     return files;
 }
 
-void ProjectManager::openRecentProject(int index) {
-    if (index >= 0 && index < (int)m_recentProjects.size()) {
-        m_selectedProject = m_recentProjects[index];
-        
-        // Check if project still exists
-        if (fs::exists(m_selectedProject.path)) {
-            DestroyWindow(m_hwnd);
-        } else {
-            MessageBoxA(m_hwnd, 
-                "Project folder no longer exists.",
-                "Error", MB_OK | MB_ICONWARNING);
-        }
-    }
-}
-
 std::string ProjectManager::browseForFolder() {
     BROWSEINFOA bi = {};
     bi.hwndOwner = m_hwnd;
@@ -446,6 +639,21 @@ std::string ProjectManager::browseForFolder() {
     }
     
     return "";
+}
+
+void ProjectManager::openRecentProject(int index) {
+    if (index >= 0 && index < (int)m_recentProjects.size()) {
+        m_selectedProject = m_recentProjects[index];
+        
+        // Check if project still exists
+        if (fs::exists(m_selectedProject.path)) {
+            DestroyWindow(m_hwnd);
+        } else {
+            MessageBoxA(m_hwnd, 
+                "Project folder no longer exists.",
+                "Error", MB_OK | MB_ICONWARNING);
+        }
+    }
 }
 
 void ProjectManager::loadRecentProjects() {
@@ -490,6 +698,191 @@ void ProjectManager::addRecentProject(const ProjectInfo& project) {
     if (m_recentProjects.size() > 5) {
         m_recentProjects.resize(5);
     }
+}
+
+void ProjectManager::showSettings() {
+    MessageBoxA(m_hwnd,
+        "Enchantment Engine Settings\n\n"
+        "Configuration:\n"
+        "• Recent projects: enchantment_recent.txt\n"
+        "• Settings file: enchantment.conf\n"
+        "• Default port: 8080\n"
+        "• Project path: Current directory\n\n"
+        "Command Line Options:\n"
+        "  --port <port>       Server port\n"
+        "  --project <path>    Project directory\n\n"
+        "Keyboard Shortcuts:\n"
+        "  Ctrl+O    Open Project\n"
+        "  Ctrl+N    New Project\n"
+        "  Ctrl+K    Open Folder\n"
+        "  F5        Refresh\n"
+        "  F1        Help",
+        "Settings",
+        MB_OK | MB_ICONINFORMATION);
+}
+
+void ProjectManager::closeDialog() {
+    m_cancelled = true;
+    DestroyWindow(m_hwnd);
+}
+
+void ProjectManager::removeFromRecent() {
+    if (!m_projectListBox) return;
+    
+    int selectedIndex = SendMessage(m_projectListBox, LB_GETCURSEL, 0, 0);
+    if (selectedIndex == LB_ERR || selectedIndex >= (int)m_recentProjects.size()) {
+        MessageBoxA(m_hwnd, "Please select a project to remove.", "Remove from Recent", MB_OK | MB_ICONINFORMATION);
+        return;
+    }
+    
+    std::string projectName = m_recentProjects[selectedIndex].name;
+    int result = MessageBoxA(m_hwnd, 
+        ("Remove '" + projectName + "' from recent projects?").c_str(),
+        "Confirm Removal", MB_YESNO | MB_ICONQUESTION);
+    
+    if (result == IDYES) {
+        m_recentProjects.erase(m_recentProjects.begin() + selectedIndex);
+        saveRecentProjects();
+        refreshProjectList();
+        
+        if (m_statusBar) {
+            SetWindowTextA(m_statusBar, "Project removed from recent list");
+        }
+    }
+}
+
+void ProjectManager::clearRecentProjects() {
+    if (m_recentProjects.empty()) {
+        MessageBoxA(m_hwnd, "Recent projects list is already empty.", "Clear Recent", MB_OK | MB_ICONINFORMATION);
+        return;
+    }
+    
+    int result = MessageBoxA(m_hwnd,
+        "Clear all recent projects?\n\nThis cannot be undone.",
+        "Confirm Clear", MB_YESNO | MB_ICONWARNING);
+    
+    if (result == IDYES) {
+        m_recentProjects.clear();
+        saveRecentProjects();
+        refreshProjectList();
+        
+        if (m_statusBar) {
+            SetWindowTextA(m_statusBar, "Recent projects cleared");
+        }
+    }
+}
+
+void ProjectManager::togglePreviewPanel() {
+    if (!m_previewPanel) return;
+    
+    BOOL isVisible = IsWindowVisible(m_previewPanel);
+    ShowWindow(m_previewPanel, isVisible ? SW_HIDE : SW_SHOW);
+    
+    // Update menu checkmark
+    HMENU menu = GetMenu(m_hwnd);
+    if (menu) {
+        HMENU viewMenu = GetSubMenu(menu, 2);  // View menu is 3rd (index 2)
+        if (viewMenu) {
+            CheckMenuItem(viewMenu, IDM_VIEW_PREVIEW, 
+                isVisible ? MF_UNCHECKED : MF_CHECKED);
+        }
+    }
+    
+    if (m_statusBar) {
+        SetWindowTextA(m_statusBar, isVisible ? "Preview panel hidden" : "Preview panel shown");
+    }
+}
+
+void ProjectManager::refreshView() {
+    loadRecentProjects();
+    refreshProjectList();
+    updatePreview();
+    
+    if (m_statusBar) {
+        SetWindowTextA(m_statusBar, "View refreshed");
+    }
+}
+
+void ProjectManager::openProjectLocation() {
+    if (!m_projectListBox) return;
+    
+    int selectedIndex = SendMessage(m_projectListBox, LB_GETCURSEL, 0, 0);
+    if (selectedIndex == LB_ERR || selectedIndex >= (int)m_recentProjects.size()) {
+        MessageBoxA(m_hwnd, "Please select a project first.", "Open Location", MB_OK | MB_ICONINFORMATION);
+        return;
+    }
+    
+    const auto& project = m_recentProjects[selectedIndex];
+    if (fs::exists(project.path)) {
+        std::string command = "explorer \"" + project.path + "\"";
+        system(command.c_str());
+    } else {
+        MessageBoxA(m_hwnd, "Project folder no longer exists.", "Error", MB_OK | MB_ICONERROR);
+    }
+}
+
+void ProjectManager::showHelp() {
+    MessageBoxA(m_hwnd,
+        "Enchantment Engine - Project Manager Help\n\n"
+        "Getting Started:\n"
+        "1. Open an existing project folder\n"
+        "2. Create a new project with template structure\n"
+        "3. Open any folder as a workspace\n"
+        "4. Open specific files for editing\n\n"
+        "Features:\n"
+        "• Recent projects list with quick access\n"
+        "• Project preview panel\n"
+        "• Multi-file selection support\n"
+        "• Keyboard shortcuts for common actions\n\n"
+        "For more information, visit:\n"
+        "https://github.com/ArkansasIo/RPG1test",
+        "Help",
+        MB_OK | MB_ICONINFORMATION);
+}
+
+void ProjectManager::showKeyboardShortcuts() {
+    MessageBoxA(m_hwnd,
+        "Keyboard Shortcuts\n\n"
+        "File Operations:\n"
+        "  Ctrl+O          Open Project\n"
+        "  Ctrl+N          New Project\n"
+        "  Ctrl+K          Open Folder\n"
+        "  Ctrl+Shift+O    Open Files\n\n"
+        "View:\n"
+        "  F5              Refresh\n"
+        "  Ctrl+P          Toggle Preview\n\n"
+        "Navigation:\n"
+        "  Up/Down         Navigate projects\n"
+        "  Enter           Open selected project\n"
+        "  Delete          Remove from recent\n\n"
+        "General:\n"
+        "  F1              Help\n"
+        "  Alt+F4          Exit\n"
+        "  Esc             Cancel",
+        "Keyboard Shortcuts",
+        MB_OK | MB_ICONINFORMATION);
+}
+
+void ProjectManager::showAbout() {
+    MessageBoxA(m_hwnd,
+        "🐉 Enchantment Engine\n"
+        "Game Boy Color Development Suite\n\n"
+        "Version: 3.0.0\n"
+        "Release: March 1, 2026\n\n"
+        "Features:\n"
+        "• Desktop application with integrated IDE\n"
+        "• C++ backend server with REST API\n"
+        "• Web-based code editor and tools\n"
+        "• Built-in Game Boy Color emulator\n"
+        "• Complete asset processing pipeline\n"
+        "• GBDK-2020 integration\n\n"
+        "Example Game:\n"
+        "Labyrinth of the Dragon - Complete RPG\n\n"
+        "GitHub: ArkansasIo/RPG1test\n"
+        "License: See LICENSE file\n\n"
+        "© 2026 Enchantment Engine Team",
+        "About Enchantment Engine",
+        MB_OK | MB_ICONINFORMATION);
 }
 
 #endif // _WIN32

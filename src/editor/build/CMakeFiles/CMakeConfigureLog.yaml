@@ -4657,8 +4657,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-qcx8dz"
-      binary: "D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-qcx8dz"
+      source: "D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-ens7ir"
+      binary: "D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-ens7ir"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/clang-scan-deps.exe"
       CMAKE_C_FLAGS: ""
@@ -4668,20 +4668,20 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-qcx8dz'
+        Change Dir: 'D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-ens7ir'
         
-        Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/mingw32-make.exe -f Makefile cmTC_8cd8f/fast
-        D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_8cd8f.dir\\build.make CMakeFiles/cmTC_8cd8f.dir/build
-        mingw32-make[1]: Entering directory 'D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-qcx8dz'
-        Building C object CMakeFiles/cmTC_8cd8f.dir/CMakeCCompilerABI.c.obj
-        D:\\llvm-mingw-20260224-msvcrt-i686\\llvm-mingw-20260224-msvcrt-i686\\bin\\cc.exe   -v -MD -MT CMakeFiles/cmTC_8cd8f.dir/CMakeCCompilerABI.c.obj -MF CMakeFiles\\cmTC_8cd8f.dir\\CMakeCCompilerABI.c.obj.d -o CMakeFiles\\cmTC_8cd8f.dir\\CMakeCCompilerABI.c.obj -c "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCCompilerABI.c"
+        Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/mingw32-make.exe -f Makefile cmTC_bfd6c/fast
+        D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_bfd6c.dir\\build.make CMakeFiles/cmTC_bfd6c.dir/build
+        mingw32-make[1]: Entering directory 'D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-ens7ir'
+        Building C object CMakeFiles/cmTC_bfd6c.dir/CMakeCCompilerABI.c.obj
+        D:\\llvm-mingw-20260224-msvcrt-i686\\llvm-mingw-20260224-msvcrt-i686\\bin\\cc.exe   -v -MD -MT CMakeFiles/cmTC_bfd6c.dir/CMakeCCompilerABI.c.obj -MF CMakeFiles\\cmTC_bfd6c.dir\\CMakeCCompilerABI.c.obj.d -o CMakeFiles\\cmTC_bfd6c.dir\\CMakeCCompilerABI.c.obj -c "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCCompilerABI.c"
         clang version 22.1.0 (https://github.com/llvm/llvm-project.git 4434dabb69916856b824f68a64b029c67175e532)
         Target: i686-w64-windows-gnu
         Thread model: posix
         InstalledDir: D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin
         Configuration file: D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/i686-w64-windows-gnu.cfg
          (in-process)
-         "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/clang-22.exe" -cc1 -triple i686-w64-windows-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model static -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -fno-sized-deallocation -fno-use-init-array -target-cpu pentium4 -tune-cpu generic -debugger-tuning=gdb "-fdebug-compilation-dir=D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-qcx8dz" -v "-fcoverage-compilation-dir=D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-qcx8dz" -resource-dir D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22 -dependency-file "CMakeFiles\\\\cmTC_8cd8f.dir\\\\CMakeCCompilerABI.c.obj.d" -MT CMakeFiles/cmTC_8cd8f.dir/CMakeCCompilerABI.c.obj -sys-header-deps -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/usr/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/include -ferror-limit 19 -fno-use-cxa-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -exception-model=dwarf -faddrsig -o "CMakeFiles\\\\cmTC_8cd8f.dir\\\\CMakeCCompilerABI.c.obj" -x c "C:\\\\Program Files\\\\CMake\\\\share\\\\cmake-4.2\\\\Modules\\\\CMakeCCompilerABI.c"
+         "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/clang-22.exe" -cc1 -triple i686-w64-windows-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model static -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -fno-sized-deallocation -fno-use-init-array -target-cpu pentium4 -tune-cpu generic -debugger-tuning=gdb "-fdebug-compilation-dir=D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-ens7ir" -v "-fcoverage-compilation-dir=D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-ens7ir" -resource-dir D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22 -dependency-file "CMakeFiles\\\\cmTC_bfd6c.dir\\\\CMakeCCompilerABI.c.obj.d" -MT CMakeFiles/cmTC_bfd6c.dir/CMakeCCompilerABI.c.obj -sys-header-deps -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/usr/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/include -ferror-limit 19 -fno-use-cxa-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -exception-model=dwarf -faddrsig -o "CMakeFiles\\\\cmTC_bfd6c.dir\\\\CMakeCCompilerABI.c.obj" -x c "C:\\\\Program Files\\\\CMake\\\\share\\\\cmake-4.2\\\\Modules\\\\CMakeCCompilerABI.c"
         clang -cc1 version 22.1.0 based upon LLVM 22.1.0 default target i686-w64-mingw32
         ignoring nonexistent directory "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/include"
         ignoring nonexistent directory "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/usr/include"
@@ -4690,19 +4690,19 @@ events:
          D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/include
          D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/include
         End of search list.
-        Linking C executable cmTC_8cd8f.exe
-        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_8cd8f.dir\\link.txt --verbose=1
+        Linking C executable cmTC_bfd6c.exe
+        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_bfd6c.dir\\link.txt --verbose=1
         clang version 22.1.0 (https://github.com/llvm/llvm-project.git 4434dabb69916856b824f68a64b029c67175e532)
         Target: i686-w64-windows-gnu
         Thread model: posix
         InstalledDir: D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin
         Configuration file: D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/i686-w64-windows-gnu.cfg
-         "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/ld.lld" -m i386pe -Bdynamic -o cmTC_8cd8f.exe D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crt2.o D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crtbegin.o -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/mingw/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows -v --whole-archive "CMakeFiles\\\\cmTC_8cd8f.dir/objects.a" --no-whole-archive --out-implib libcmTC_8cd8f.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows/libclang_rt.builtins-i386.a -lunwind -lmoldname -lmingwex -lmsvcrt -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows/libclang_rt.builtins-i386.a -lunwind -lmoldname -lmingwex -lmsvcrt -lkernel32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crtend.o
+         "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/ld.lld" -m i386pe -Bdynamic -o cmTC_bfd6c.exe D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crt2.o D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crtbegin.o -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/mingw/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows -v --whole-archive "CMakeFiles\\\\cmTC_bfd6c.dir/objects.a" --no-whole-archive --out-implib libcmTC_bfd6c.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows/libclang_rt.builtins-i386.a -lunwind -lmoldname -lmingwex -lmsvcrt -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows/libclang_rt.builtins-i386.a -lunwind -lmoldname -lmingwex -lmsvcrt -lkernel32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crtend.o
         LLD 22.1.0 (https://github.com/llvm/llvm-project.git 4434dabb69916856b824f68a64b029c67175e532) (compatible with GNU linkers)
-        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E rm -f CMakeFiles\\cmTC_8cd8f.dir/objects.a
-        D:\\llvm-mingw-20260224-msvcrt-i686\\llvm-mingw-20260224-msvcrt-i686\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_8cd8f.dir/objects.a @CMakeFiles\\cmTC_8cd8f.dir\\objects1.rsp
-        D:\\llvm-mingw-20260224-msvcrt-i686\\llvm-mingw-20260224-msvcrt-i686\\bin\\cc.exe  -v -Wl,-v -Wl,--whole-archive CMakeFiles\\cmTC_8cd8f.dir/objects.a -Wl,--no-whole-archive -o cmTC_8cd8f.exe -Wl,--out-implib,libcmTC_8cd8f.dll.a -Wl,--major-image-version,0,--minor-image-version,0
-        mingw32-make[1]: Leaving directory 'D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-qcx8dz'
+        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E rm -f CMakeFiles\\cmTC_bfd6c.dir/objects.a
+        D:\\llvm-mingw-20260224-msvcrt-i686\\llvm-mingw-20260224-msvcrt-i686\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_bfd6c.dir/objects.a @CMakeFiles\\cmTC_bfd6c.dir\\objects1.rsp
+        D:\\llvm-mingw-20260224-msvcrt-i686\\llvm-mingw-20260224-msvcrt-i686\\bin\\cc.exe  -v -Wl,-v -Wl,--whole-archive CMakeFiles\\cmTC_bfd6c.dir/objects.a -Wl,--no-whole-archive -o cmTC_bfd6c.exe -Wl,--out-implib,libcmTC_bfd6c.dll.a -Wl,--major-image-version,0,--minor-image-version,0
+        mingw32-make[1]: Leaving directory 'D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-ens7ir'
         
       exitCode: 0
   -
@@ -4733,20 +4733,20 @@ events:
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: 'D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-qcx8dz']
+        ignore line: [Change Dir: 'D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-ens7ir']
         ignore line: []
-        ignore line: [Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/mingw32-make.exe -f Makefile cmTC_8cd8f/fast]
-        ignore line: [D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_8cd8f.dir\\build.make CMakeFiles/cmTC_8cd8f.dir/build]
-        ignore line: [mingw32-make[1]: Entering directory 'D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-qcx8dz']
-        ignore line: [Building C object CMakeFiles/cmTC_8cd8f.dir/CMakeCCompilerABI.c.obj]
-        ignore line: [D:\\llvm-mingw-20260224-msvcrt-i686\\llvm-mingw-20260224-msvcrt-i686\\bin\\cc.exe   -v -MD -MT CMakeFiles/cmTC_8cd8f.dir/CMakeCCompilerABI.c.obj -MF CMakeFiles\\cmTC_8cd8f.dir\\CMakeCCompilerABI.c.obj.d -o CMakeFiles\\cmTC_8cd8f.dir\\CMakeCCompilerABI.c.obj -c "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCCompilerABI.c"]
+        ignore line: [Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/mingw32-make.exe -f Makefile cmTC_bfd6c/fast]
+        ignore line: [D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_bfd6c.dir\\build.make CMakeFiles/cmTC_bfd6c.dir/build]
+        ignore line: [mingw32-make[1]: Entering directory 'D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-ens7ir']
+        ignore line: [Building C object CMakeFiles/cmTC_bfd6c.dir/CMakeCCompilerABI.c.obj]
+        ignore line: [D:\\llvm-mingw-20260224-msvcrt-i686\\llvm-mingw-20260224-msvcrt-i686\\bin\\cc.exe   -v -MD -MT CMakeFiles/cmTC_bfd6c.dir/CMakeCCompilerABI.c.obj -MF CMakeFiles\\cmTC_bfd6c.dir\\CMakeCCompilerABI.c.obj.d -o CMakeFiles\\cmTC_bfd6c.dir\\CMakeCCompilerABI.c.obj -c "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCCompilerABI.c"]
         ignore line: [clang version 22.1.0 (https://github.com/llvm/llvm-project.git 4434dabb69916856b824f68a64b029c67175e532)]
         ignore line: [Target: i686-w64-windows-gnu]
         ignore line: [Thread model: posix]
         ignore line: [InstalledDir: D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin]
         ignore line: [Configuration file: D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/i686-w64-windows-gnu.cfg]
         ignore line: [ (in-process)]
-        ignore line: [ "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/clang-22.exe" -cc1 -triple i686-w64-windows-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model static -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -fno-sized-deallocation -fno-use-init-array -target-cpu pentium4 -tune-cpu generic -debugger-tuning=gdb "-fdebug-compilation-dir=D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-qcx8dz" -v "-fcoverage-compilation-dir=D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-qcx8dz" -resource-dir D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22 -dependency-file "CMakeFiles\\\\cmTC_8cd8f.dir\\\\CMakeCCompilerABI.c.obj.d" -MT CMakeFiles/cmTC_8cd8f.dir/CMakeCCompilerABI.c.obj -sys-header-deps -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/usr/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/include -ferror-limit 19 -fno-use-cxa-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -exception-model=dwarf -faddrsig -o "CMakeFiles\\\\cmTC_8cd8f.dir\\\\CMakeCCompilerABI.c.obj" -x c "C:\\\\Program Files\\\\CMake\\\\share\\\\cmake-4.2\\\\Modules\\\\CMakeCCompilerABI.c"]
+        ignore line: [ "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/clang-22.exe" -cc1 -triple i686-w64-windows-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model static -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -fno-sized-deallocation -fno-use-init-array -target-cpu pentium4 -tune-cpu generic -debugger-tuning=gdb "-fdebug-compilation-dir=D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-ens7ir" -v "-fcoverage-compilation-dir=D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-ens7ir" -resource-dir D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22 -dependency-file "CMakeFiles\\\\cmTC_bfd6c.dir\\\\CMakeCCompilerABI.c.obj.d" -MT CMakeFiles/cmTC_bfd6c.dir/CMakeCCompilerABI.c.obj -sys-header-deps -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/usr/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/include -ferror-limit 19 -fno-use-cxa-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -exception-model=dwarf -faddrsig -o "CMakeFiles\\\\cmTC_bfd6c.dir\\\\CMakeCCompilerABI.c.obj" -x c "C:\\\\Program Files\\\\CMake\\\\share\\\\cmake-4.2\\\\Modules\\\\CMakeCCompilerABI.c"]
         ignore line: [clang -cc1 version 22.1.0 based upon LLVM 22.1.0 default target i686-w64-mingw32]
         ignore line: [ignoring nonexistent directory "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/include"]
         ignore line: [ignoring nonexistent directory "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/usr/include"]
@@ -4755,20 +4755,20 @@ events:
         ignore line: [ D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/include]
         ignore line: [ D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/include]
         ignore line: [End of search list.]
-        ignore line: [Linking C executable cmTC_8cd8f.exe]
-        ignore line: ["C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_8cd8f.dir\\link.txt --verbose=1]
+        ignore line: [Linking C executable cmTC_bfd6c.exe]
+        ignore line: ["C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_bfd6c.dir\\link.txt --verbose=1]
         ignore line: [clang version 22.1.0 (https://github.com/llvm/llvm-project.git 4434dabb69916856b824f68a64b029c67175e532)]
         ignore line: [Target: i686-w64-windows-gnu]
         ignore line: [Thread model: posix]
         ignore line: [InstalledDir: D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin]
         ignore line: [Configuration file: D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/i686-w64-windows-gnu.cfg]
-        link line: [ "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/ld.lld" -m i386pe -Bdynamic -o cmTC_8cd8f.exe D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crt2.o D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crtbegin.o -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/mingw/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows -v --whole-archive "CMakeFiles\\\\cmTC_8cd8f.dir/objects.a" --no-whole-archive --out-implib libcmTC_8cd8f.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows/libclang_rt.builtins-i386.a -lunwind -lmoldname -lmingwex -lmsvcrt -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows/libclang_rt.builtins-i386.a -lunwind -lmoldname -lmingwex -lmsvcrt -lkernel32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crtend.o]
+        link line: [ "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/ld.lld" -m i386pe -Bdynamic -o cmTC_bfd6c.exe D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crt2.o D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crtbegin.o -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/mingw/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows -v --whole-archive "CMakeFiles\\\\cmTC_bfd6c.dir/objects.a" --no-whole-archive --out-implib libcmTC_bfd6c.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows/libclang_rt.builtins-i386.a -lunwind -lmoldname -lmingwex -lmsvcrt -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows/libclang_rt.builtins-i386.a -lunwind -lmoldname -lmingwex -lmsvcrt -lkernel32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crtend.o]
           arg [D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/ld.lld] ==> ignore
           arg [-m] ==> ignore
           arg [i386pe] ==> ignore
           arg [-Bdynamic] ==> search dynamic
           arg [-o] ==> ignore
-          arg [cmTC_8cd8f.exe] ==> ignore
+          arg [cmTC_bfd6c.exe] ==> ignore
           arg [D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crt2.o] ==> obj [D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crt2.o]
           arg [D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crtbegin.o] ==> obj [D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crtbegin.o]
           arg [-LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib] ==> dir [D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib]
@@ -4777,10 +4777,10 @@ events:
           arg [-LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows] ==> dir [D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows]
           arg [-v] ==> ignore
           arg [--whole-archive] ==> ignore
-          arg [CMakeFiles\\\\cmTC_8cd8f.dir/objects.a] ==> ignore
+          arg [CMakeFiles\\\\cmTC_bfd6c.dir/objects.a] ==> ignore
           arg [--no-whole-archive] ==> ignore
           arg [--out-implib] ==> ignore
-          arg [libcmTC_8cd8f.dll.a] ==> ignore
+          arg [libcmTC_bfd6c.dll.a] ==> ignore
           arg [--major-image-version] ==> ignore
           arg [0] ==> ignore
           arg [--minor-image-version] ==> ignore
@@ -4837,8 +4837,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-wms8mw"
-      binary: "D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-wms8mw"
+      source: "D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-5tatsa"
+      binary: "D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-5tatsa"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/clang-scan-deps.exe"
       CMAKE_CXX_FLAGS: ""
@@ -4849,20 +4849,20 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-wms8mw'
+        Change Dir: 'D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-5tatsa'
         
-        Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/mingw32-make.exe -f Makefile cmTC_d0255/fast
-        D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_d0255.dir\\build.make CMakeFiles/cmTC_d0255.dir/build
-        mingw32-make[1]: Entering directory 'D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-wms8mw'
-        Building CXX object CMakeFiles/cmTC_d0255.dir/CMakeCXXCompilerABI.cpp.obj
-        D:\\llvm-mingw-20260224-msvcrt-i686\\llvm-mingw-20260224-msvcrt-i686\\bin\\c++.exe   -v -MD -MT CMakeFiles/cmTC_d0255.dir/CMakeCXXCompilerABI.cpp.obj -MF CMakeFiles\\cmTC_d0255.dir\\CMakeCXXCompilerABI.cpp.obj.d -o CMakeFiles\\cmTC_d0255.dir\\CMakeCXXCompilerABI.cpp.obj -c "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
+        Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/mingw32-make.exe -f Makefile cmTC_07cb1/fast
+        D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_07cb1.dir\\build.make CMakeFiles/cmTC_07cb1.dir/build
+        mingw32-make[1]: Entering directory 'D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-5tatsa'
+        Building CXX object CMakeFiles/cmTC_07cb1.dir/CMakeCXXCompilerABI.cpp.obj
+        D:\\llvm-mingw-20260224-msvcrt-i686\\llvm-mingw-20260224-msvcrt-i686\\bin\\c++.exe   -v -MD -MT CMakeFiles/cmTC_07cb1.dir/CMakeCXXCompilerABI.cpp.obj -MF CMakeFiles\\cmTC_07cb1.dir\\CMakeCXXCompilerABI.cpp.obj.d -o CMakeFiles\\cmTC_07cb1.dir\\CMakeCXXCompilerABI.cpp.obj -c "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
         clang version 22.1.0 (https://github.com/llvm/llvm-project.git 4434dabb69916856b824f68a64b029c67175e532)
         Target: i686-w64-windows-gnu
         Thread model: posix
         InstalledDir: D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin
         Configuration file: D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/i686-w64-windows-gnu.cfg
          (in-process)
-         "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/clang-22.exe" -cc1 -triple i686-w64-windows-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model static -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -fno-sized-deallocation -fno-use-init-array -target-cpu pentium4 -tune-cpu generic -debugger-tuning=gdb "-fdebug-compilation-dir=D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-wms8mw" -v "-fcoverage-compilation-dir=D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-wms8mw" -resource-dir D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22 -dependency-file "CMakeFiles\\\\cmTC_d0255.dir\\\\CMakeCXXCompilerABI.cpp.obj.d" -MT CMakeFiles/cmTC_d0255.dir/CMakeCXXCompilerABI.cpp.obj -sys-header-deps -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/include/c++/v1 -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/include/c++/v1 -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/usr/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/include -fdeprecated-macro -ferror-limit 19 -fno-use-cxa-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -exception-model=dwarf -faddrsig -o "CMakeFiles\\\\cmTC_d0255.dir\\\\CMakeCXXCompilerABI.cpp.obj" -x c++ "C:\\\\Program Files\\\\CMake\\\\share\\\\cmake-4.2\\\\Modules\\\\CMakeCXXCompilerABI.cpp"
+         "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/clang-22.exe" -cc1 -triple i686-w64-windows-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model static -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -fno-sized-deallocation -fno-use-init-array -target-cpu pentium4 -tune-cpu generic -debugger-tuning=gdb "-fdebug-compilation-dir=D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-5tatsa" -v "-fcoverage-compilation-dir=D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-5tatsa" -resource-dir D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22 -dependency-file "CMakeFiles\\\\cmTC_07cb1.dir\\\\CMakeCXXCompilerABI.cpp.obj.d" -MT CMakeFiles/cmTC_07cb1.dir/CMakeCXXCompilerABI.cpp.obj -sys-header-deps -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/include/c++/v1 -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/include/c++/v1 -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/usr/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/include -fdeprecated-macro -ferror-limit 19 -fno-use-cxa-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -exception-model=dwarf -faddrsig -o "CMakeFiles\\\\cmTC_07cb1.dir\\\\CMakeCXXCompilerABI.cpp.obj" -x c++ "C:\\\\Program Files\\\\CMake\\\\share\\\\cmake-4.2\\\\Modules\\\\CMakeCXXCompilerABI.cpp"
         clang -cc1 version 22.1.0 based upon LLVM 22.1.0 default target i686-w64-mingw32
         ignoring nonexistent directory "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/include/c++/v1"
         ignoring nonexistent directory "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/include"
@@ -4873,19 +4873,19 @@ events:
          D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/include
          D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/include
         End of search list.
-        Linking CXX executable cmTC_d0255.exe
-        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_d0255.dir\\link.txt --verbose=1
+        Linking CXX executable cmTC_07cb1.exe
+        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_07cb1.dir\\link.txt --verbose=1
         clang version 22.1.0 (https://github.com/llvm/llvm-project.git 4434dabb69916856b824f68a64b029c67175e532)
         Target: i686-w64-windows-gnu
         Thread model: posix
         InstalledDir: D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin
         Configuration file: D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/i686-w64-windows-gnu.cfg
-         "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/ld.lld" -m i386pe -Bdynamic -o cmTC_d0255.exe D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crt2.o D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crtbegin.o -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/mingw/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows -v --whole-archive "CMakeFiles\\\\cmTC_d0255.dir/objects.a" --no-whole-archive --out-implib libcmTC_d0255.dll.a --major-image-version 0 --minor-image-version 0 -lc++ -lmingw32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows/libclang_rt.builtins-i386.a -lunwind -lmoldname -lmingwex -lmsvcrt -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows/libclang_rt.builtins-i386.a -lunwind -lmoldname -lmingwex -lmsvcrt -lkernel32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crtend.o
+         "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/ld.lld" -m i386pe -Bdynamic -o cmTC_07cb1.exe D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crt2.o D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crtbegin.o -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/mingw/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows -v --whole-archive "CMakeFiles\\\\cmTC_07cb1.dir/objects.a" --no-whole-archive --out-implib libcmTC_07cb1.dll.a --major-image-version 0 --minor-image-version 0 -lc++ -lmingw32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows/libclang_rt.builtins-i386.a -lunwind -lmoldname -lmingwex -lmsvcrt -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows/libclang_rt.builtins-i386.a -lunwind -lmoldname -lmingwex -lmsvcrt -lkernel32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crtend.o
         LLD 22.1.0 (https://github.com/llvm/llvm-project.git 4434dabb69916856b824f68a64b029c67175e532) (compatible with GNU linkers)
-        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E rm -f CMakeFiles\\cmTC_d0255.dir/objects.a
-        D:\\llvm-mingw-20260224-msvcrt-i686\\llvm-mingw-20260224-msvcrt-i686\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_d0255.dir/objects.a @CMakeFiles\\cmTC_d0255.dir\\objects1.rsp
-        D:\\llvm-mingw-20260224-msvcrt-i686\\llvm-mingw-20260224-msvcrt-i686\\bin\\c++.exe  -v -Wl,-v -Wl,--whole-archive CMakeFiles\\cmTC_d0255.dir/objects.a -Wl,--no-whole-archive -o cmTC_d0255.exe -Wl,--out-implib,libcmTC_d0255.dll.a -Wl,--major-image-version,0,--minor-image-version,0
-        mingw32-make[1]: Leaving directory 'D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-wms8mw'
+        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E rm -f CMakeFiles\\cmTC_07cb1.dir/objects.a
+        D:\\llvm-mingw-20260224-msvcrt-i686\\llvm-mingw-20260224-msvcrt-i686\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_07cb1.dir/objects.a @CMakeFiles\\cmTC_07cb1.dir\\objects1.rsp
+        D:\\llvm-mingw-20260224-msvcrt-i686\\llvm-mingw-20260224-msvcrt-i686\\bin\\c++.exe  -v -Wl,-v -Wl,--whole-archive CMakeFiles\\cmTC_07cb1.dir/objects.a -Wl,--no-whole-archive -o cmTC_07cb1.exe -Wl,--out-implib,libcmTC_07cb1.dll.a -Wl,--major-image-version,0,--minor-image-version,0
+        mingw32-make[1]: Leaving directory 'D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-5tatsa'
         
       exitCode: 0
   -
@@ -4918,20 +4918,20 @@ events:
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: 'D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-wms8mw']
+        ignore line: [Change Dir: 'D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-5tatsa']
         ignore line: []
-        ignore line: [Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/mingw32-make.exe -f Makefile cmTC_d0255/fast]
-        ignore line: [D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_d0255.dir\\build.make CMakeFiles/cmTC_d0255.dir/build]
-        ignore line: [mingw32-make[1]: Entering directory 'D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-wms8mw']
-        ignore line: [Building CXX object CMakeFiles/cmTC_d0255.dir/CMakeCXXCompilerABI.cpp.obj]
-        ignore line: [D:\\llvm-mingw-20260224-msvcrt-i686\\llvm-mingw-20260224-msvcrt-i686\\bin\\c++.exe   -v -MD -MT CMakeFiles/cmTC_d0255.dir/CMakeCXXCompilerABI.cpp.obj -MF CMakeFiles\\cmTC_d0255.dir\\CMakeCXXCompilerABI.cpp.obj.d -o CMakeFiles\\cmTC_d0255.dir\\CMakeCXXCompilerABI.cpp.obj -c "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"]
+        ignore line: [Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/mingw32-make.exe -f Makefile cmTC_07cb1/fast]
+        ignore line: [D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_07cb1.dir\\build.make CMakeFiles/cmTC_07cb1.dir/build]
+        ignore line: [mingw32-make[1]: Entering directory 'D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-5tatsa']
+        ignore line: [Building CXX object CMakeFiles/cmTC_07cb1.dir/CMakeCXXCompilerABI.cpp.obj]
+        ignore line: [D:\\llvm-mingw-20260224-msvcrt-i686\\llvm-mingw-20260224-msvcrt-i686\\bin\\c++.exe   -v -MD -MT CMakeFiles/cmTC_07cb1.dir/CMakeCXXCompilerABI.cpp.obj -MF CMakeFiles\\cmTC_07cb1.dir\\CMakeCXXCompilerABI.cpp.obj.d -o CMakeFiles\\cmTC_07cb1.dir\\CMakeCXXCompilerABI.cpp.obj -c "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"]
         ignore line: [clang version 22.1.0 (https://github.com/llvm/llvm-project.git 4434dabb69916856b824f68a64b029c67175e532)]
         ignore line: [Target: i686-w64-windows-gnu]
         ignore line: [Thread model: posix]
         ignore line: [InstalledDir: D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin]
         ignore line: [Configuration file: D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/i686-w64-windows-gnu.cfg]
         ignore line: [ (in-process)]
-        ignore line: [ "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/clang-22.exe" -cc1 -triple i686-w64-windows-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model static -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -fno-sized-deallocation -fno-use-init-array -target-cpu pentium4 -tune-cpu generic -debugger-tuning=gdb "-fdebug-compilation-dir=D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-wms8mw" -v "-fcoverage-compilation-dir=D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-wms8mw" -resource-dir D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22 -dependency-file "CMakeFiles\\\\cmTC_d0255.dir\\\\CMakeCXXCompilerABI.cpp.obj.d" -MT CMakeFiles/cmTC_d0255.dir/CMakeCXXCompilerABI.cpp.obj -sys-header-deps -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/include/c++/v1 -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/include/c++/v1 -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/usr/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/include -fdeprecated-macro -ferror-limit 19 -fno-use-cxa-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -exception-model=dwarf -faddrsig -o "CMakeFiles\\\\cmTC_d0255.dir\\\\CMakeCXXCompilerABI.cpp.obj" -x c++ "C:\\\\Program Files\\\\CMake\\\\share\\\\cmake-4.2\\\\Modules\\\\CMakeCXXCompilerABI.cpp"]
+        ignore line: [ "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/clang-22.exe" -cc1 -triple i686-w64-windows-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model static -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -fno-sized-deallocation -fno-use-init-array -target-cpu pentium4 -tune-cpu generic -debugger-tuning=gdb "-fdebug-compilation-dir=D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-5tatsa" -v "-fcoverage-compilation-dir=D:/LabyrinthOfTheDragon/Enchantment Engine/src/editor/build/CMakeFiles/CMakeScratch/TryCompile-5tatsa" -resource-dir D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22 -dependency-file "CMakeFiles\\\\cmTC_07cb1.dir\\\\CMakeCXXCompilerABI.cpp.obj.d" -MT CMakeFiles/cmTC_07cb1.dir/CMakeCXXCompilerABI.cpp.obj -sys-header-deps -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/include/c++/v1 -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/include/c++/v1 -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/usr/include -internal-isystem D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/include -fdeprecated-macro -ferror-limit 19 -fno-use-cxa-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -exception-model=dwarf -faddrsig -o "CMakeFiles\\\\cmTC_07cb1.dir\\\\CMakeCXXCompilerABI.cpp.obj" -x c++ "C:\\\\Program Files\\\\CMake\\\\share\\\\cmake-4.2\\\\Modules\\\\CMakeCXXCompilerABI.cpp"]
         ignore line: [clang -cc1 version 22.1.0 based upon LLVM 22.1.0 default target i686-w64-mingw32]
         ignore line: [ignoring nonexistent directory "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/include/c++/v1"]
         ignore line: [ignoring nonexistent directory "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/include"]
@@ -4942,20 +4942,20 @@ events:
         ignore line: [ D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/include]
         ignore line: [ D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/include]
         ignore line: [End of search list.]
-        ignore line: [Linking CXX executable cmTC_d0255.exe]
-        ignore line: ["C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_d0255.dir\\link.txt --verbose=1]
+        ignore line: [Linking CXX executable cmTC_07cb1.exe]
+        ignore line: ["C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_07cb1.dir\\link.txt --verbose=1]
         ignore line: [clang version 22.1.0 (https://github.com/llvm/llvm-project.git 4434dabb69916856b824f68a64b029c67175e532)]
         ignore line: [Target: i686-w64-windows-gnu]
         ignore line: [Thread model: posix]
         ignore line: [InstalledDir: D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin]
         ignore line: [Configuration file: D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/i686-w64-windows-gnu.cfg]
-        link line: [ "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/ld.lld" -m i386pe -Bdynamic -o cmTC_d0255.exe D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crt2.o D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crtbegin.o -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/mingw/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows -v --whole-archive "CMakeFiles\\\\cmTC_d0255.dir/objects.a" --no-whole-archive --out-implib libcmTC_d0255.dll.a --major-image-version 0 --minor-image-version 0 -lc++ -lmingw32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows/libclang_rt.builtins-i386.a -lunwind -lmoldname -lmingwex -lmsvcrt -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows/libclang_rt.builtins-i386.a -lunwind -lmoldname -lmingwex -lmsvcrt -lkernel32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crtend.o]
+        link line: [ "D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/ld.lld" -m i386pe -Bdynamic -o cmTC_07cb1.exe D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crt2.o D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crtbegin.o -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/mingw/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib -LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows -v --whole-archive "CMakeFiles\\\\cmTC_07cb1.dir/objects.a" --no-whole-archive --out-implib libcmTC_07cb1.dll.a --major-image-version 0 --minor-image-version 0 -lc++ -lmingw32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows/libclang_rt.builtins-i386.a -lunwind -lmoldname -lmingwex -lmsvcrt -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows/libclang_rt.builtins-i386.a -lunwind -lmoldname -lmingwex -lmsvcrt -lkernel32 D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crtend.o]
           arg [D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/bin/ld.lld] ==> ignore
           arg [-m] ==> ignore
           arg [i386pe] ==> ignore
           arg [-Bdynamic] ==> search dynamic
           arg [-o] ==> ignore
-          arg [cmTC_d0255.exe] ==> ignore
+          arg [cmTC_07cb1.exe] ==> ignore
           arg [D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crt2.o] ==> obj [D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crt2.o]
           arg [D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crtbegin.o] ==> obj [D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib/crtbegin.o]
           arg [-LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib] ==> dir [D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/i686-w64-mingw32/lib]
@@ -4964,10 +4964,10 @@ events:
           arg [-LD:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows] ==> dir [D:/llvm-mingw-20260224-msvcrt-i686/llvm-mingw-20260224-msvcrt-i686/lib/clang/22/lib/windows]
           arg [-v] ==> ignore
           arg [--whole-archive] ==> ignore
-          arg [CMakeFiles\\\\cmTC_d0255.dir/objects.a] ==> ignore
+          arg [CMakeFiles\\\\cmTC_07cb1.dir/objects.a] ==> ignore
           arg [--no-whole-archive] ==> ignore
           arg [--out-implib] ==> ignore
-          arg [libcmTC_d0255.dll.a] ==> ignore
+          arg [libcmTC_07cb1.dll.a] ==> ignore
           arg [--major-image-version] ==> ignore
           arg [0] ==> ignore
           arg [--minor-image-version] ==> ignore

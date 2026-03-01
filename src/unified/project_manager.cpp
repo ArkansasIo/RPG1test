@@ -180,14 +180,31 @@ LRESULT CALLBACK ProjectManager::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, 
 
 void ProjectManager::onCreate() {
     std::cout << "ProjectManager::onCreate() called" << std::endl;
+    std::cout << "Window handle: " << m_hwnd << std::endl;
+    
+    // Get window dimensions
+    RECT rect;
+    GetClientRect(m_hwnd, &rect);
+    std::cout << "Window size: " << rect.right << "x" << rect.bottom << std::endl;
+    
     createMenuBar();
     std::cout << "Menu bar created" << std::endl;
+    
     createControls();
     std::cout << "Controls created" << std::endl;
+    
     createStatusBar();
     std::cout << "Status bar created" << std::endl;
+    
     refreshProjectList();
     std::cout << "Project list refreshed" << std::endl;
+    
+    // Force complete window update
+    InvalidateRect(m_hwnd, NULL, TRUE);
+    UpdateWindow(m_hwnd);
+    RedrawWindow(m_hwnd, NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW | RDW_ALLCHILDREN);
+    
+    std::cout << "Window fully initialized and updated" << std::endl;
 }
 
 void ProjectManager::createMenuBar() {
@@ -257,12 +274,19 @@ void ProjectManager::createControls() {
     int width = clientRect.right - clientRect.left;
     int height = clientRect.bottom - clientRect.top;
     
+    std::cout << "Creating controls in area: " << width << "x" << height << std::endl;
+    
     // Title section
     HWND titleLabel = CreateWindowA("STATIC", "Enchantment Engine",
         WS_CHILD | WS_VISIBLE | SS_CENTER,
         20, 10, width - 40, 40,
         m_hwnd, NULL, hInstance, NULL);
-    SendMessage(titleLabel, WM_SETFONT, (WPARAM)m_titleFont, TRUE);
+    if (titleLabel) {
+        SendMessage(titleLabel, WM_SETFONT, (WPARAM)m_titleFont, TRUE);
+        std::cout << "Title label created: " << titleLabel << std::endl;
+    } else {
+        std::cout << "Title label FAILED: " << GetLastError() << std::endl;
+    }
     
     // Subtitle
     HWND subtitleLabel = CreateWindowA("STATIC", 
@@ -270,42 +294,74 @@ void ProjectManager::createControls() {
         WS_CHILD | WS_VISIBLE | SS_CENTER,
         20, 55, width - 40, 25,
         m_hwnd, NULL, hInstance, NULL);
-    SendMessage(subtitleLabel, WM_SETFONT, (WPARAM)m_font, TRUE);
+    if (subtitleLabel) {
+        SendMessage(subtitleLabel, WM_SETFONT, (WPARAM)m_font, TRUE);
+        std::cout << "Subtitle label created: " << subtitleLabel << std::endl;
+    } else {
+        std::cout << "Subtitle label FAILED: " << GetLastError() << std::endl;
+    }
     
     // Quick action buttons
     int btnY = 90;
     int btnWidth = (width - 80) / 4;
     
-    HWND btnOpen = CreateWindowA("BUTTON", "Open",
-        WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+    std::cout << "Creating buttons with width: " << btnWidth << std::endl;
+    
+    HWND btnOpen = CreateWindowA("BUTTON", "Open Project",
+        WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | WS_TABSTOP,
         20, btnY, btnWidth, 40,
         m_hwnd, (HMENU)IDM_FILE_OPEN_PROJECT, hInstance, NULL);
-    SendMessage(btnOpen, WM_SETFONT, (WPARAM)m_font, TRUE);
+    if (btnOpen) {
+        SendMessage(btnOpen, WM_SETFONT, (WPARAM)m_font, TRUE);
+        std::cout << "Open button created: " << btnOpen << std::endl;
+    } else {
+        std::cout << "Open button FAILED: " << GetLastError() << std::endl;
+    }
     
-    HWND btnNew = CreateWindowA("BUTTON", "New",
-        WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+    HWND btnNew = CreateWindowA("BUTTON", "New Project",
+        WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | WS_TABSTOP,
         30 + btnWidth, btnY, btnWidth, 40,
         m_hwnd, (HMENU)IDM_FILE_NEW_PROJECT, hInstance, NULL);
-    SendMessage(btnNew, WM_SETFONT, (WPARAM)m_font, TRUE);
+    if (btnNew) {
+        SendMessage(btnNew, WM_SETFONT, (WPARAM)m_font, TRUE);
+        std::cout << "New button created: " << btnNew << std::endl;
+    } else {
+        std::cout << "New button FAILED: " << GetLastError() << std::endl;
+    }
     
-    HWND btnFolder = CreateWindowA("BUTTON", "Folder",
-        WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+    HWND btnFolder = CreateWindowA("BUTTON", "Open Folder",
+        WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | WS_TABSTOP,
         40 + btnWidth * 2, btnY, btnWidth, 40,
         m_hwnd, (HMENU)IDM_FILE_OPEN_FOLDER, hInstance, NULL);
-    SendMessage(btnFolder, WM_SETFONT, (WPARAM)m_font, TRUE);
+    if (btnFolder) {
+        SendMessage(btnFolder, WM_SETFONT, (WPARAM)m_font, TRUE);
+        std::cout << "Folder button created: " << btnFolder << std::endl;
+    } else {
+        std::cout << "Folder button FAILED: " << GetLastError() << std::endl;
+    }
     
-    HWND btnFiles = CreateWindowA("BUTTON", "Files",
-        WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+    HWND btnFiles = CreateWindowA("BUTTON", "Open Files",
+        WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | WS_TABSTOP,
         50 + btnWidth * 3, btnY, btnWidth, 40,
         m_hwnd, (HMENU)IDM_FILE_OPEN_FILES, hInstance, NULL);
-    SendMessage(btnFiles, WM_SETFONT, (WPARAM)m_font, TRUE);
+    if (btnFiles) {
+        SendMessage(btnFiles, WM_SETFONT, (WPARAM)m_font, TRUE);
+        std::cout << "Files button created: " << btnFiles << std::endl;
+    } else {
+        std::cout << "Files button FAILED: " << GetLastError() << std::endl;
+    }
     
     // Projects section label
     HWND projectsLabel = CreateWindowA("STATIC", "Recent Projects:",
         WS_CHILD | WS_VISIBLE | SS_LEFT,
         20, 145, 300, 25,
         m_hwnd, NULL, hInstance, NULL);
-    SendMessage(projectsLabel, WM_SETFONT, (WPARAM)m_boldFont, TRUE);
+    if (projectsLabel) {
+        SendMessage(projectsLabel, WM_SETFONT, (WPARAM)m_boldFont, TRUE);
+        std::cout << "Projects label created: " << projectsLabel << std::endl;
+    } else {
+        std::cout << "Projects label FAILED: " << GetLastError() << std::endl;
+    }
     
     // Project list box
     m_projectListBox = CreateWindowExA(
@@ -315,21 +371,29 @@ void ProjectManager::createControls() {
         WS_CHILD | WS_VISIBLE | WS_VSCROLL | LBS_NOTIFY | LBS_HASSTRINGS,
         20, 175, (width - 60) / 2, height - 220,
         m_hwnd, (HMENU)IDC_PROJECT_LISTBOX, hInstance, NULL);
-    SendMessage(m_projectListBox, WM_SETFONT, (WPARAM)m_font, TRUE);
+    if (m_projectListBox) {
+        SendMessage(m_projectListBox, WM_SETFONT, (WPARAM)m_font, TRUE);
+        std::cout << "Project listbox created: " << m_projectListBox << std::endl;
+    } else {
+        std::cout << "Project listbox FAILED: " << GetLastError() << std::endl;
+    }
     
     // Preview panel
     m_previewPanel = CreateWindowExA(
         WS_EX_CLIENTEDGE,
         "STATIC",
         "Select a project to see details",
-        WS_CHILD | WS_VISIBLE | SS_LEFT,
+        WS_CHILD | WS_VISIBLE | SS_LEFT | SS_SUNKEN,
         (width - 60) / 2 + 40, 175, (width - 60) / 2, height - 220,
         m_hwnd, (HMENU)IDC_PREVIEW_PANEL, hInstance, NULL);
-    SendMessage(m_previewPanel, WM_SETFONT, (WPARAM)m_font, TRUE);
+    if (m_previewPanel) {
+        SendMessage(m_previewPanel, WM_SETFONT, (WPARAM)m_font, TRUE);
+        std::cout << "Preview panel created: " << m_previewPanel << std::endl;
+    } else {
+        std::cout << "Preview panel FAILED: " << GetLastError() << std::endl;
+    }
     
-    // Force redraw
-    InvalidateRect(m_hwnd, NULL, TRUE);
-    UpdateWindow(m_hwnd);
+    std::cout << "All controls created successfully" << std::endl;
 }
 
 void ProjectManager::createStatusBar() {

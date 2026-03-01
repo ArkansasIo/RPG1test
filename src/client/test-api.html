@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enchantment Engine - API Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        .test-section {
+            background: #2d2d30;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            border-left: 4px solid #007acc;
+        }
+        button {
+            background: #0e639c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #1177bb;
+        }
+        .result {
+            background: #1e1e1e;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 3px;
+            font-family: 'Consolas', monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .success {
+            color: #4CAF50;
+        }
+        .error {
+            color: #f44336;
+        }
+        .info {
+            color: #2196F3;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 3px;
+            margin: 5px 0;
+        }
+        .status.connected {
+            background: #4CAF50;
+            color: white;
+        }
+        .status.disconnected {
+            background: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>🐉 Enchantment Engine - API Test</h1>
+    
+    <div class="test-section">
+        <h2>Connection Status</h2>
+        <div id="connection-status">Testing connection...</div>
+        <button onclick="testConnection()">Test Connection</button>
+    </div>
+
+    <div class="test-section">
+        <h2>System Information</h2>
+        <button onclick="testSystemStatus()">Get System Status</button>
+        <button onclick="testSystemVersion()">Get Version Info</button>
+        <div id="system-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>File Operations</h2>
+        <button onclick="testListFiles()">List Files</button>
+        <button onclick="testReadFile()">Read File</button>
+        <button onclick="testProjectInfo()">Project Info</button>
+        <div id="file-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Build Operations</h2>
+        <button onclick="testBuildStatus()">Build Status</button>
+        <button onclick="testBuildAssets()">Build Assets</button>
+        <button onclick="testBuildRom()">Build ROM</button>
+        <div id="build-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Asset Operations</h2>
+        <button onclick="testListAssets()">List All Assets</button>
+        <button onclick="testGetTiles()">Get Tiles</button>
+        <button onclick="testGetMaps()">Get Maps</button>
+        <button onclick="testGetSprites()">Get Sprites</button>
+        <div id="asset-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>ROM Operations</h2>
+        <button onclick="testRomInfo()">ROM Info</button>
+        <button onclick="testDownloadRom()">Download ROM</button>
+        <div id="rom-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Quick Links</h2>
+        <button onclick="window.location.href='api-demo.html'">Open Full IDE Demo</button>
+        <button onclick="window.location.href='index.html'">Open Main IDE</button>
+    </div>
+
+    <script src="js/api-client.js"></script>
+    <script>
+        // Test connection on load
+        window.addEventListener('DOMContentLoaded', testConnection);
+
+        async function testConnection() {
+            const statusDiv = document.getElementById('connection-status');
+            statusDiv.innerHTML = 'Testing connection...';
+            
+            try {
+                const isConnected = await api.ping();
+                if (isConnected) {
+                    statusDiv.innerHTML = '<span class="status connected">✓ Connected to server</span>';
+                    statusDiv.innerHTML += '<br><span class="info">Server URL: ' + api.baseUrl + '</span>';
+                } else {
+                    statusDiv.innerHTML = '<span class="status disconnected">✗ Server not responding</span>';
+                    statusDiv.innerHTML += '<br><span class="error">Make sure EnchantmentEngine.exe is running</span>';
+                }
+            } catch (error) {
+                statusDiv.innerHTML = '<span class="status disconnected">✗ Connection failed</span>';
+                statusDiv.innerHTML += '<br><span class="error">Error: ' + error.message + '</span>';
+            }
+        }
+
+        async function testSystemStatus() {
+            const result = document.getElementById('system-result');
+            result.innerHTML = 'Loading...';
+            
+            try {
+                const status = await api.getSystemStatus();
+                if (status) {
+                    result.innerHTML = '<span class="success">✓ System Status Retrieved</span>\n\n';
+                    result.innerHTML += JSON.stringify(status, null, 2);
+                } else {
+                    result.innerHTML = '<span class="error">✗ Failed to get system status</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">✗ Error: ' + error.message + '</span>';
+            }
+        }
+
+        async function testSystemVersion() {
+            const result = document.getElementById('system-result');
+            result.innerHTML = 'Loading...';
+            
+            try {
+                const version = await api.getSystemVersion();
+                if (version) {
+                    result.innerHTML = '<span class="success">✓ Version Info Retrieved</span>\n\n';
+                    result.innerHTML += JSON.stringify(version, null, 2);
+                } else {
+                    result.innerHTML = '<span class="error">✗ Failed to get version info</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">✗ Error: ' + error.message + '</span>';
+            }
+        }
+
+        async function testListFiles() {
+            const result = document.getElementById('file-result');
+            result.innerHTML = 'Loading...';
+            
+            try {
+                const files = await api.listFiles('src');
+                if (files) {
+                    result.innerHTML = '<span class="success">✓ Files Listed</span>\n\n';
+                    result.innerHTML += 'Found ' + files.length + ' files:\n';
+                    result.innerHTML += files.join('\n');
+                } else {
+                    result.innerHTML = '<span class="error">✗ Failed to list files</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">✗ Error: ' + error.message + '</span>';
+            }
+        }
+
+        async function testReadFile() {
+            const result = document.getElementById('file-result');
+            result.innerHTML = 'Loading...';
+            
+            try {
+                // Try to read a common file
+                const content = await api.readFile('src/main.c');
+                if (content !== null) {
+                    result.innerHTML = '<span class="success">✓ File Read Successfully</span>\n\n';
+                    result.innerHTML += 'File: src/main.c\n';
+                    result.innerHTML += 'Length: ' + content.length + ' bytes\n\n';
+                    result.innerHTML += content.substring(0, 500) + '...';
+                } else {
+                    result.innerHTML = '<span class="error">✗ File not found or failed to read</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">✗ Error: ' + error.message + '</span>';
+            }
+        }
+
+        async function testProjectInfo() {
+            const result = document.getElementById('file-result');
+            result.innerHTML = 'Loading...';
+            
+            try {
+                const info = await api.getProjectInfo();
+                if (info) {
+                    result.innerHTML = '<span class="success">✓ Project Info Retrieved</span>\n\n';
+                    result.innerHTML += JSON.stringify(info, null, 2);
+                } else {
+                    result.innerHTML = '<span class="error">✗ Failed to get project info</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">✗ Error: ' + error.message + '</span>';
+            }
+        }
+
+        async function testBuildStatus() {
+            const result = document.getElementById('build-result');
+            result.innerHTML = 'Loading...';
+            
+            try {
+                const status = await api.getBuildStatus();
+                if (status) {
+                    result.innerHTML = '<span class="success">✓ Build Status Retrieved</span>\n\n';
+                    result.innerHTML += JSON.stringify(status, null, 2);
+                } else {
+                    result.innerHTML = '<span class="error">✗ Failed to get build status</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">✗ Error: ' + error.message + '</span>';
+            }
+        }
+
+        async function testBuildAssets() {
+            const result = document.getElementById('build-result');
+            result.innerHTML = 'Building assets...';
+            
+            try {
+                const buildResult = await api.buildAssets();
+                if (buildResult && buildResult.success) {
+                    result.innerHTML = '<span class="success">✓ Assets Built Successfully</span>\n\n';
+                    result.innerHTML += buildResult.output || 'Build completed';
+                } else {
+                    result.innerHTML = '<span class="error">✗ Asset build failed</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">✗ Error: ' + error.message + '</span>';
+            }
+        }
+
+        async function testBuildRom() {
+            const result = document.getElementById('build-result');
+            result.innerHTML = 'Building ROM...';
+            
+            try {
+                const buildResult = await api.buildRom();
+                if (buildResult && buildResult.success) {
+                    result.innerHTML = '<span class="success">✓ ROM Built Successfully</span>\n\n';
+                    result.innerHTML += buildResult.output || 'Build completed';
+                } else {
+                    result.innerHTML = '<span class="error">✗ ROM build failed</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">✗ Error: ' + error.message + '</span>';
+            }
+        }
+
+        async function testListAssets() {
+            const result = document.getElementById('asset-result');
+            result.innerHTML = 'Loading...';
+            
+            try {
+                const assets = await api.listAssets();
+                if (assets) {
+                    result.innerHTML = '<span class="success">✓ Assets Listed</span>\n\n';
+                    result.innerHTML += JSON.stringify(assets, null, 2);
+                } else {
+                    result.innerHTML = '<span class="error">✗ Failed to list assets</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">✗ Error: ' + error.message + '</span>';
+            }
+        }
+
+        async function testGetTiles() {
+            const result = document.getElementById('asset-result');
+            result.innerHTML = 'Loading...';
+            
+            try {
+                const tiles = await api.getTiles();
+                if (tiles) {
+                    result.innerHTML = '<span class="success">✓ Tiles Retrieved</span>\n\n';
+                    result.innerHTML += 'Found ' + tiles.length + ' tiles:\n';
+                    result.innerHTML += tiles.join('\n');
+                } else {
+                    result.innerHTML = '<span class="error">✗ Failed to get tiles</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">✗ Error: ' + error.message + '</span>';
+            }
+        }
+
+        async function testGetMaps() {
+            const result = document.getElementById('asset-result');
+            result.innerHTML = 'Loading...';
+            
+            try {
+                const maps = await api.getMaps();
+                if (maps) {
+                    result.innerHTML = '<span class="success">✓ Maps Retrieved</span>\n\n';
+                    result.innerHTML += 'Found ' + maps.length + ' maps:\n';
+                    result.innerHTML += maps.join('\n');
+                } else {
+                    result.innerHTML = '<span class="error">✗ Failed to get maps</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">✗ Error: ' + error.message + '</span>';
+            }
+        }
+
+        async function testGetSprites() {
+            const result = document.getElementById('asset-result');
+            result.innerHTML = 'Loading...';
+            
+            try {
+                const sprites = await api.getSprites();
+                if (sprites) {
+                    result.innerHTML = '<span class="success">✓ Sprites Retrieved</span>\n\n';
+                    result.innerHTML += 'Found ' + sprites.length + ' sprites:\n';
+                    result.innerHTML += sprites.join('\n');
+                } else {
+                    result.innerHTML = '<span class="error">✗ Failed to get sprites</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">✗ Error: ' + error.message + '</span>';
+            }
+        }
+
+        async function testRomInfo() {
+            const result = document.getElementById('rom-result');
+            result.innerHTML = 'Loading...';
+            
+            try {
+                const info = await api.getRomInfo();
+                if (info) {
+                    result.innerHTML = '<span class="success">✓ ROM Info Retrieved</span>\n\n';
+                    result.innerHTML += JSON.stringify(info, null, 2);
+                } else {
+                    result.innerHTML = '<span class="error">✗ Failed to get ROM info</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">✗ Error: ' + error.message + '</span>';
+            }
+        }
+
+        async function testDownloadRom() {
+            const result = document.getElementById('rom-result');
+            result.innerHTML = 'Downloading ROM...';
+            
+            try {
+                const success = await api.downloadRom();
+                if (success) {
+                    result.innerHTML = '<span class="success">✓ ROM Downloaded Successfully</span>\n\n';
+                    result.innerHTML += 'Check your downloads folder for game.gbc';
+                } else {
+                    result.innerHTML = '<span class="error">✗ ROM download failed</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">✗ Error: ' + error.message + '</span>';
+            }
+        }
+    </script>
+</body>
+</html>

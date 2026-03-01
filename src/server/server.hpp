@@ -68,13 +68,49 @@ private:
     HttpRequest parseRequest(const std::string& requestData);
     std::string buildResponse(const HttpResponse& response);
     
-    // Route handlers
+    // Route handlers - File Operations
     void handleGetFile(const HttpRequest& req, HttpResponse& res);
     void handleSaveFile(const HttpRequest& req, HttpResponse& res);
     void handleListFiles(const HttpRequest& req, HttpResponse& res);
+    void handleDeleteFile(const HttpRequest& req, HttpResponse& res);
+    void handleNewFile(const HttpRequest& req, HttpResponse& res);
+    void handleRenameFile(const HttpRequest& req, HttpResponse& res);
+    
+    // Route handlers - Project Operations
+    void handleProjectInfo(const HttpRequest& req, HttpResponse& res);
+    void handleProjectSettings(const HttpRequest& req, HttpResponse& res);
+    
+    // Route handlers - Build Operations
     void handleBuildAssets(const HttpRequest& req, HttpResponse& res);
     void handleBuildRom(const HttpRequest& req, HttpResponse& res);
+    void handleBuildAll(const HttpRequest& req, HttpResponse& res);
+    void handleCleanBuild(const HttpRequest& req, HttpResponse& res);
+    void handleBuildStatus(const HttpRequest& req, HttpResponse& res);
+    
+    // Route handlers - Asset Operations
+    void handleListAssets(const HttpRequest& req, HttpResponse& res);
+    void handleGetTiles(const HttpRequest& req, HttpResponse& res);
+    void handleGetMaps(const HttpRequest& req, HttpResponse& res);
+    void handleGetSprites(const HttpRequest& req, HttpResponse& res);
+    
+    // Route handlers - ROM Operations
     void handleGetRom(const HttpRequest& req, HttpResponse& res);
+    void handleRomInfo(const HttpRequest& req, HttpResponse& res);
+    
+    // Route handlers - Debug Operations
+    void handleDebugSymbols(const HttpRequest& req, HttpResponse& res);
+    void handleSetBreakpoint(const HttpRequest& req, HttpResponse& res);
+    
+    // Route handlers - Tools Operations
+    void handleTileEditor(const HttpRequest& req, HttpResponse& res);
+    void handleMapEditor(const HttpRequest& req, HttpResponse& res);
+    void handleSpriteEditor(const HttpRequest& req, HttpResponse& res);
+    
+    // Route handlers - System Operations
+    void handleSystemStatus(const HttpRequest& req, HttpResponse& res);
+    void handleSystemVersion(const HttpRequest& req, HttpResponse& res);
+    
+    // Static file handler
     void handleStaticFile(const HttpRequest& req, HttpResponse& res);
 
     int m_port;

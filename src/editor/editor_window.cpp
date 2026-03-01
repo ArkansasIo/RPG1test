@@ -257,6 +257,12 @@ LRESULT CALLBACK EditorWindow::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LP
 
 void EditorWindow::onCreate() {
     std::cout << "EditorWindow::onCreate() called" << std::endl;
+    std::cout << "Window handle: " << m_hwnd << std::endl;
+    
+    // Get window dimensions
+    RECT rect;
+    GetClientRect(m_hwnd, &rect);
+    std::cout << "Window size: " << rect.right << "x" << rect.bottom << std::endl;
     
     createMenuBar();
     std::cout << "Menu bar created" << std::endl;
@@ -267,20 +273,36 @@ void EditorWindow::onCreate() {
     createStatusBar();
     std::cout << "Status bar created" << std::endl;
     
-    // Create a simple text label for testing
+    // Create a large, visible test label
     HWND label = CreateWindowA("STATIC", "Enchantment Engine Editor - Ready",
         WS_CHILD | WS_VISIBLE | SS_CENTER,
         100, 100, 600, 50,
         m_hwnd, NULL, GetModuleHandle(NULL), NULL);
-    SendMessage(label, WM_SETFONT, (WPARAM)m_font, TRUE);
+    if (label) {
+        SendMessage(label, WM_SETFONT, (WPARAM)m_font, TRUE);
+        std::cout << "Label created: " << label << std::endl;
+    } else {
+        std::cout << "Label FAILED: " << GetLastError() << std::endl;
+    }
     
-    std::cout << "Label created" << std::endl;
+    // Create a test button
+    HWND testButton = CreateWindowA("BUTTON", "Click Me - Test Button",
+        WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | WS_TABSTOP,
+        100, 200, 300, 50,
+        m_hwnd, (HMENU)9999, GetModuleHandle(NULL), NULL);
+    if (testButton) {
+        SendMessage(testButton, WM_SETFONT, (WPARAM)m_font, TRUE);
+        std::cout << "Test button created: " << testButton << std::endl;
+    } else {
+        std::cout << "Test button FAILED: " << GetLastError() << std::endl;
+    }
     
-    // Force redraw
+    // Force complete window update
     InvalidateRect(m_hwnd, NULL, TRUE);
     UpdateWindow(m_hwnd);
+    RedrawWindow(m_hwnd, NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW | RDW_ALLCHILDREN);
     
-    std::cout << "Window updated" << std::endl;
+    std::cout << "Window fully initialized and updated" << std::endl;
 }
 
 void EditorWindow::onPaint() {
@@ -301,6 +323,13 @@ void EditorWindow::onPaint() {
 
 void EditorWindow::onCommand(WPARAM wParam) {
     int id = LOWORD(wParam);
+    
+    // Test button
+    if (id == 9999) {
+        MessageBoxA(m_hwnd, "Test button clicked! UI is working!", "Success", MB_OK | MB_ICONINFORMATION);
+        std::cout << "Test button clicked!" << std::endl;
+        return;
+    }
     
     // File Menu
     if (id >= IDM_FILE_NEW && id <= IDM_FILE_EXIT) {

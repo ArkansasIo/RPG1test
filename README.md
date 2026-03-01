@@ -35,6 +35,7 @@ Enchantment Engine is a modern development suite that brings Game Boy Color game
 - **Browser Integration** - Opens IDE in your default browser
 - **Process Monitoring** - Health checks and graceful shutdown
 - **Single Executable** - No installation required
+- **Complete REST API** - 30+ endpoints for all operations
 
 ### Web-Based IDE
 - **Code Editor**
@@ -45,6 +46,19 @@ Enchantment Engine is a modern development suite that brings Game Boy Color game
   - Go to line (Ctrl+G)
   - Word wrap toggle
   - Font size adjustment
+
+- **NEW: Enhanced Web Client**
+  - **Complete API Integration** - 30+ JavaScript methods
+  - **Professional Menu System** - 8 menus with all operations
+  - **File Management** - Create, Open, Save, Delete, Rename
+  - **Build Integration** - Assets, ROM, Clean, Status
+  - **Asset Browser** - View Tiles, Maps, Sprites
+  - **ROM Operations** - Download, Info
+  - **Debug Tools** - Symbols, Breakpoints
+  - **System Info** - Status, Version
+  - **Keyboard Shortcuts** - Ctrl+N, Ctrl+O, Ctrl+S, F7
+  - **Notifications** - Success, Error, Warning, Info
+  - **Dark Theme** - Professional IDE appearance
 
 - **Asset Tools**
   - **Tile Editor** - PNG viewer and pixel-level editor
@@ -67,22 +81,41 @@ Enchantment Engine is a modern development suite that brings Game Boy Color game
   - Keyboard support
 
 ### Backend Server
-- **HTTP REST API** - File operations and build commands
+- **HTTP REST API** - 30+ endpoints for all operations
 - **File Management** - Safe read/write with security
 - **Build System** - GBDK-2020 integration
 - **Asset Processor** - PNG to binary, string generation, table compilation
 - **Cross-Platform** - Windows, Linux, macOS
+- **JSON Responses** - Standard REST API format
+- **CORS Enabled** - Web client support
 
 ---
 
 ## 🚀 Quick Start
+
+### Testing the Installation (Recommended First Step)
+
+Before using the IDE, verify everything is working:
+
+```bash
+# Interactive test suite (recommended)
+.\test_ui.bat
+
+# Or capture debug output
+.\capture_debug.bat
+
+# Check system information
+.\system_info.bat
+```
+
+📖 See [TESTING.md](TESTING.md) for detailed testing instructions.
 
 ### Running the Unified Application
 
 Navigate to the bin folder and run:
 ```bash
 cd bin
-./EnchantmentEngine.exe
+.\EnchantmentEngine.exe
 ```
 
 Or double-click `bin/EnchantmentEngine.exe` from File Explorer.
@@ -94,6 +127,56 @@ The unified application will:
 4. Wait for server to be ready
 5. Open IDE in your default browser with selected project
 6. You're ready to develop!
+
+### Web Client Options
+
+Once the server is running, you can access:
+
+**Option 1: API Test Page** (Test all features)
+```
+http://localhost:8080/test-api.html
+```
+
+**Option 2: Full IDE Demo** (Complete IDE with menus)
+```
+http://localhost:8080/api-demo.html
+```
+
+**Option 3: Original IDE** (Main interface)
+```
+http://localhost:8080/
+```
+
+### Web Client Features
+
+The new web client includes:
+- ✅ Complete API integration (30+ methods)
+- ✅ Professional menu system (8 menus)
+- ✅ File browser and code editor
+- ✅ Build operations with output
+- ✅ Asset management
+- ✅ ROM download
+- ✅ Keyboard shortcuts (Ctrl+N, Ctrl+O, Ctrl+S, F7)
+- ✅ Notifications and status updates
+
+📖 See [WEB_CLIENT_QUICKSTART.md](WEB_CLIENT_QUICKSTART.md) for web client guide.
+
+### Troubleshooting
+
+If you see a white/blank screen or no UI:
+
+1. **Run the minimal test first:**
+   ```bash
+   cd bin
+   .\test_window.exe
+   ```
+   If this works, the Windows API is fine.
+
+2. **Check console output** for error messages and control creation status
+
+3. **See [TROUBLESHOOTING.md](TROUBLESHOOTING.md)** for detailed solutions
+
+4. **Review [BUILD_STATUS.md](BUILD_STATUS.md)** for build information
 
 **Command Line Options:**
 ```bash

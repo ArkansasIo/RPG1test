@@ -262,3 +262,216 @@ std::string ApiClient::urlEncode(const std::string& str) {
     }
     return encoded.str();
 }
+
+
+// Additional File Operations
+bool ApiClient::deleteFile(const std::string& path) {
+    auto response = del("/api/file?path=" + urlEncode(path));
+    return response.statusCode == 200;
+}
+
+bool ApiClient::newFile(const std::string& path) {
+    std::string json = "{\"path\":\"" + path + "\"}";
+    auto response = post("/api/file/new", json);
+    return response.statusCode == 200;
+}
+
+bool ApiClient::renameFile(const std::string& oldPath, const std::string& newPath) {
+    std::string json = "{\"oldPath\":\"" + oldPath + "\",\"newPath\":\"" + newPath + "\"}";
+    auto response = post("/api/file/rename", json);
+    return response.statusCode == 200;
+}
+
+// Project Operations
+std::string ApiClient::getProjectInfo() {
+    auto response = get("/api/project/info");
+    if (response.statusCode == 200) {
+        return response.body;
+    }
+    return "{}";
+}
+
+bool ApiClient::saveProjectSettings(const std::map<std::string, std::string>& settings) {
+    std::ostringstream json;
+    json << "{";
+    bool first = true;
+    for (const auto& [key, value] : settings) {
+        if (!first) json << ",";
+        json << "\"" << key << "\":\"" << value << "\"";
+        first = false;
+    }
+    json << "}";
+    
+    auto response = post("/api/project/settings", json.str());
+    return response.statusCode == 200;
+}
+
+// Build Operations
+std::string ApiClient::cleanBuild() {
+    auto response = post("/api/build/clean", "");
+    if (response.statusCode == 200) {
+        return response.body;
+    }
+    return "Clean failed";
+}
+
+std::string ApiClient::getBuildStatus() {
+    auto response = get("/api/build/status");
+    if (response.statusCode == 200) {
+        return response.body;
+    }
+    return "{}";
+}
+
+// Asset Operations
+std::string ApiClient::listAssets() {
+    auto response = get("/api/assets/list");
+    if (response.statusCode == 200) {
+        return response.body;
+    }
+    return "{}";
+}
+
+std::vector<std::string> ApiClient::getTiles() {
+    std::vector<std::string> tiles;
+    auto response = get("/api/assets/tiles");
+    if (response.statusCode == 200) {
+        // Parse JSON array (simple parsing)
+        std::string json = response.body;
+        size_t pos = json.find("[");
+        if (pos != std::string::npos) {
+            size_t end = json.find("]", pos);
+            std::string tilesStr = json.substr(pos + 1, end - pos - 1);
+            
+            std::istringstream stream(tilesStr);
+            std::string tile;
+            while (std::getline(stream, tile, ',')) {
+                tile.erase(0, tile.find_first_not_of(" \t\n\r\""));
+                tile.erase(tile.find_last_not_of(" \t\n\r\"") + 1);
+                if (!tile.empty()) {
+                    tiles.push_back(tile);
+                }
+            }
+        }
+    }
+    return tiles;
+}
+
+std::vector<std::string> ApiClient::getMaps() {
+    std::vector<std::string> maps;
+    auto response = get("/api/assets/maps");
+    if (response.statusCode == 200) {
+        // Parse JSON array (simple parsing)
+        std::string json = response.body;
+        size_t pos = json.find("[");
+        if (pos != std::string::npos) {
+            size_t end = json.find("]", pos);
+            std::string mapsStr = json.substr(pos + 1, end - pos - 1);
+            
+            std::istringstream stream(mapsStr);
+            std::string map;
+            while (std::getline(stream, map, ',')) {
+                map.erase(0, map.find_first_not_of(" \t\n\r\""));
+                map.erase(map.find_last_not_of(" \t\n\r\"") + 1);
+                if (!map.empty()) {
+                    maps.push_back(map);
+                }
+            }
+        }
+    }
+    return maps;
+}
+
+std::vector<std::string> ApiClient::getSprites() {
+    std::vector<std::string> sprites;
+    auto response = get("/api/assets/sprites");
+    if (response.statusCode == 200) {
+        // Parse JSON array (simple parsing)
+        std::string json = response.body;
+        size_t pos = json.find("[");
+        if (pos != std::string::npos) {
+            size_t end = json.find("]", pos);
+            std::string spritesStr = json.substr(pos + 1, end - pos - 1);
+            
+            std::istringstream stream(spritesStr);
+            std::string sprite;
+            while (std::getline(stream, sprite, ',')) {
+                sprite.erase(0, sprite.find_first_not_of(" \t\n\r\""));
+                sprite.erase(sprite.find_last_not_of(" \t\n\r\"") + 1);
+                if (!sprite.empty()) {
+                    sprites.push_back(sprite);
+                }
+            }
+        }
+    }
+    return sprites;
+}
+
+// ROM Operations
+std::string ApiClient::getRomInfo() {
+    auto response = get("/api/rom/info");
+    if (response.statusCode == 200) {
+        return response.body;
+    }
+    return "{}";
+}
+
+// Debug Operations
+std::string ApiClient::getDebugSymbols() {
+    auto response = get("/api/debug/symbols");
+    if (response.statusCode == 200) {
+        return response.body;
+    }
+    return "{}";
+}
+
+bool ApiClient::setBreakpoint(const std::string& address) {
+    std::string json = "{\"address\":\"" + address + "\"}";
+    auto response = post("/api/debug/breakpoint", json);
+    return response.statusCode == 200;
+}
+
+// Tools Operations
+std::string ApiClient::tileEditorAction(const std::string& action, const std::string& data) {
+    std::string json = "{\"action\":\"" + action + "\",\"data\":\"" + data + "\"}";
+    auto response = post("/api/tools/tile-editor", json);
+    if (response.statusCode == 200) {
+        return response.body;
+    }
+    return "{\"success\":false}";
+}
+
+std::string ApiClient::mapEditorAction(const std::string& action, const std::string& data) {
+    std::string json = "{\"action\":\"" + action + "\",\"data\":\"" + data + "\"}";
+    auto response = post("/api/tools/map-editor", json);
+    if (response.statusCode == 200) {
+        return response.body;
+    }
+    return "{\"success\":false}";
+}
+
+std::string ApiClient::spriteEditorAction(const std::string& action, const std::string& data) {
+    std::string json = "{\"action\":\"" + action + "\",\"data\":\"" + data + "\"}";
+    auto response = post("/api/tools/sprite-editor", json);
+    if (response.statusCode == 200) {
+        return response.body;
+    }
+    return "{\"success\":false}";
+}
+
+// System Operations
+std::string ApiClient::getSystemStatus() {
+    auto response = get("/api/system/status");
+    if (response.statusCode == 200) {
+        return response.body;
+    }
+    return "{}";
+}
+
+std::string ApiClient::getSystemVersion() {
+    auto response = get("/api/system/version");
+    if (response.statusCode == 200) {
+        return response.body;
+    }
+    return "{}";
+}

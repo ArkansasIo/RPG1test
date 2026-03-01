@@ -145,9 +145,10 @@ bool EditorWindow::initialize() {
     wc.hInstance = GetModuleHandle(NULL);
     wc.lpszClassName = "EnchantmentEditorWindow";
     wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+    wc.hbrBackground = CreateSolidBrush(RGB(255, 255, 255));
     wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
     wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+    wc.style = CS_HREDRAW | CS_VREDRAW;
     
     RegisterClassExA(&wc);
     
@@ -243,6 +244,8 @@ LRESULT CALLBACK EditorWindow::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LP
             case WM_NOTIFY:
                 editor->onNotify(lParam);
                 return 0;
+            case WM_ERASEBKGND:
+                return 1; // Prevent flicker
             case WM_DESTROY:
                 editor->onDestroy();
                 return 0;
@@ -253,16 +256,46 @@ LRESULT CALLBACK EditorWindow::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LP
 }
 
 void EditorWindow::onCreate() {
+    std::cout << "EditorWindow::onCreate() called" << std::endl;
+    
     createMenuBar();
+    std::cout << "Menu bar created" << std::endl;
+    
     createToolbar();
-    createTabControl();
-    createPanels();
+    std::cout << "Toolbar created" << std::endl;
+    
     createStatusBar();
+    std::cout << "Status bar created" << std::endl;
+    
+    // Create a simple text label for testing
+    HWND label = CreateWindowA("STATIC", "Enchantment Engine Editor - Ready",
+        WS_CHILD | WS_VISIBLE | SS_CENTER,
+        100, 100, 600, 50,
+        m_hwnd, NULL, GetModuleHandle(NULL), NULL);
+    SendMessage(label, WM_SETFONT, (WPARAM)m_font, TRUE);
+    
+    std::cout << "Label created" << std::endl;
+    
+    // Force redraw
+    InvalidateRect(m_hwnd, NULL, TRUE);
+    UpdateWindow(m_hwnd);
+    
+    std::cout << "Window updated" << std::endl;
 }
 
 void EditorWindow::onPaint() {
     PAINTSTRUCT ps;
     HDC hdc = BeginPaint(m_hwnd, &ps);
+    
+    // Draw background
+    RECT rect;
+    GetClientRect(m_hwnd, &rect);
+    
+    // Fill with white background
+    HBRUSH brush = CreateSolidBrush(RGB(255, 255, 255));
+    FillRect(hdc, &rect, brush);
+    DeleteObject(brush);
+    
     EndPaint(m_hwnd, &ps);
 }
 
@@ -397,8 +430,6 @@ void EditorWindow::onDestroy() {
 void EditorWindow::onNotify(LPARAM lParam) {
     // Handle tab control notifications
 }
-
-#endif // _WIN32
 
 // Menu Creation Functions
 
@@ -860,12 +891,11 @@ void EditorWindow::closeProject() {
 }
 
 void EditorWindow::projectSettings() {
-    MessageBoxA(m_hwnd, 
-        "Project Settings:\n\n"
+    std::string message = "Project Settings:\n\n"
         "Name: " + m_config.projectPath + "\n"
         "Build System: GBDK-2020\n"
-        "Target: Game Boy Color\n",
-        "Project Settings", MB_OK | MB_ICONINFORMATION);
+        "Target: Game Boy Color\n";
+    MessageBoxA(m_hwnd, message.c_str(), "Project Settings", MB_OK | MB_ICONINFORMATION);
 }
 
 void EditorWindow::addNewItem() {
@@ -1007,13 +1037,12 @@ void EditorWindow::assetBrowser() {
 }
 
 void EditorWindow::options() {
-    MessageBoxA(m_hwnd,
-        "Editor Options:\n\n"
+    std::string message = "Editor Options:\n\n"
         "Font Size: " + std::to_string(m_config.fontSize) + "\n"
         "Auto Save: " + std::string(m_config.autoSave ? "On" : "Off") + "\n"
         "Line Numbers: " + std::string(m_config.showLineNumbers ? "On" : "Off") + "\n"
-        "Word Wrap: " + std::string(m_config.wordWrap ? "On" : "Off"),
-        "Options", MB_OK | MB_ICONINFORMATION);
+        "Word Wrap: " + std::string(m_config.wordWrap ? "On" : "Off");
+    MessageBoxA(m_hwnd, message.c_str(), "Options", MB_OK | MB_ICONINFORMATION);
 }
 
 // Window Operations

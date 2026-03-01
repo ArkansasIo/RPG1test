@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Source files
 set(SOURCES
+    main.cpp
     editor_window.cpp
     code_editor.cpp
     asset_manager.cpp

@@ -82,7 +82,8 @@ bool ProjectManager::showDialog() {
     wc.hInstance = GetModuleHandle(NULL);
     wc.lpszClassName = "EnchantmentProjectManager";
     wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+    wc.hbrBackground = CreateSolidBrush(RGB(240, 240, 240));
+    wc.style = CS_HREDRAW | CS_VREDRAW;
     
     RegisterClassA(&wc);
     
@@ -166,6 +167,8 @@ LRESULT CALLBACK ProjectManager::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, 
             case WM_SIZE:
                 manager->onSize(LOWORD(lParam), HIWORD(lParam));
                 return 0;
+            case WM_ERASEBKGND:
+                return 1; // Prevent flicker
             case WM_DESTROY:
                 manager->onDestroy();
                 return 0;
@@ -176,10 +179,15 @@ LRESULT CALLBACK ProjectManager::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, 
 }
 
 void ProjectManager::onCreate() {
+    std::cout << "ProjectManager::onCreate() called" << std::endl;
     createMenuBar();
+    std::cout << "Menu bar created" << std::endl;
     createControls();
+    std::cout << "Controls created" << std::endl;
     createStatusBar();
+    std::cout << "Status bar created" << std::endl;
     refreshProjectList();
+    std::cout << "Project list refreshed" << std::endl;
 }
 
 void ProjectManager::createMenuBar() {
@@ -250,7 +258,7 @@ void ProjectManager::createControls() {
     int height = clientRect.bottom - clientRect.top;
     
     // Title section
-    HWND titleLabel = CreateWindowA("STATIC", "🐉 Enchantment Engine",
+    HWND titleLabel = CreateWindowA("STATIC", "Enchantment Engine",
         WS_CHILD | WS_VISIBLE | SS_CENTER,
         20, 10, width - 40, 40,
         m_hwnd, NULL, hInstance, NULL);
@@ -268,25 +276,25 @@ void ProjectManager::createControls() {
     int btnY = 90;
     int btnWidth = (width - 80) / 4;
     
-    HWND btnOpen = CreateWindowA("BUTTON", "📁 Open",
+    HWND btnOpen = CreateWindowA("BUTTON", "Open",
         WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
         20, btnY, btnWidth, 40,
         m_hwnd, (HMENU)IDM_FILE_OPEN_PROJECT, hInstance, NULL);
     SendMessage(btnOpen, WM_SETFONT, (WPARAM)m_font, TRUE);
     
-    HWND btnNew = CreateWindowA("BUTTON", "✨ New",
+    HWND btnNew = CreateWindowA("BUTTON", "New",
         WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
         30 + btnWidth, btnY, btnWidth, 40,
         m_hwnd, (HMENU)IDM_FILE_NEW_PROJECT, hInstance, NULL);
     SendMessage(btnNew, WM_SETFONT, (WPARAM)m_font, TRUE);
     
-    HWND btnFolder = CreateWindowA("BUTTON", "📂 Folder",
+    HWND btnFolder = CreateWindowA("BUTTON", "Folder",
         WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
         40 + btnWidth * 2, btnY, btnWidth, 40,
         m_hwnd, (HMENU)IDM_FILE_OPEN_FOLDER, hInstance, NULL);
     SendMessage(btnFolder, WM_SETFONT, (WPARAM)m_font, TRUE);
     
-    HWND btnFiles = CreateWindowA("BUTTON", "📄 Files",
+    HWND btnFiles = CreateWindowA("BUTTON", "Files",
         WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
         50 + btnWidth * 3, btnY, btnWidth, 40,
         m_hwnd, (HMENU)IDM_FILE_OPEN_FILES, hInstance, NULL);
@@ -318,6 +326,10 @@ void ProjectManager::createControls() {
         (width - 60) / 2 + 40, 175, (width - 60) / 2, height - 220,
         m_hwnd, (HMENU)IDC_PREVIEW_PANEL, hInstance, NULL);
     SendMessage(m_previewPanel, WM_SETFONT, (WPARAM)m_font, TRUE);
+    
+    // Force redraw
+    InvalidateRect(m_hwnd, NULL, TRUE);
+    UpdateWindow(m_hwnd);
 }
 
 void ProjectManager::createStatusBar() {
@@ -396,17 +408,14 @@ void ProjectManager::onPaint() {
     PAINTSTRUCT ps;
     HDC hdc = BeginPaint(m_hwnd, &ps);
     
-    // Draw background gradient
+    // Draw background
     RECT rect;
     GetClientRect(m_hwnd, &rect);
     
-    TRIVERTEX vertices[2] = {
-        {0, 0, 0xF000, 0xF800, 0xFF00, 0xFF00},
-        {rect.right, rect.bottom, 0xE000, 0xE800, 0xF000, 0xFF00}
-    };
-    
-    GRADIENT_RECT gradRect = {0, 1};
-    GradientFill(hdc, vertices, 2, &gradRect, 1, GRADIENT_FILL_RECT_V);
+    // Fill with light gray background
+    HBRUSH brush = CreateSolidBrush(RGB(240, 240, 240));
+    FillRect(hdc, &rect, brush);
+    DeleteObject(brush);
     
     EndPaint(m_hwnd, &ps);
 }

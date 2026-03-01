@@ -18,10 +18,6 @@
 class CodeEditor;
 class AssetManager;
 class BuildSystem;
-class Debugger;
-class ProjectExplorer;
-class OutputConsole;
-class PropertiesPanel;
 
 struct EditorConfig {
     std::string projectPath;
@@ -57,10 +53,6 @@ private:
     std::unique_ptr<CodeEditor> m_codeEditor;
     std::unique_ptr<AssetManager> m_assetManager;
     std::unique_ptr<BuildSystem> m_buildSystem;
-    std::unique_ptr<Debugger> m_debugger;
-    std::unique_ptr<ProjectExplorer> m_projectExplorer;
-    std::unique_ptr<OutputConsole> m_outputConsole;
-    std::unique_ptr<PropertiesPanel> m_propertiesPanel;
     
     EditorConfig m_config;
     std::vector<std::string> m_openFiles;
